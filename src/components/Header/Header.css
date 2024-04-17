@@ -12,7 +12,7 @@
   margin: 0;
   font-size: 20px;
   line-height: 24px;
-  font-family: "CabinetGrotesk-Bold";
+  font-family: "Cabinet Grotesk";
 }
 
 .header__add-clothes-button {
@@ -23,7 +23,7 @@
   cursor: pointer;
   border: none;
   background-color: inherit;
-  font-family: "CabinetGrotesk-Bold";
+  font-family: "Cabinet Grotesk";
 }
 
 .header__user_container {
@@ -36,7 +36,7 @@
   margin: 0;
   font-size: 20px;
   line-height: 24px;
-  font-family: "CabinetGrotesk-Bold";
+  font-family: "Cabinet Grotesk";
 }
 
 .header__avatar {
