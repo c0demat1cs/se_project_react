@@ -54,7 +54,7 @@ function App() {
       </div>
       <ModalWithForm
         title="New garment"
-        buttonText="Add Garment"
+        buttonText="Add garment"
         activeModal={activeModal}
         onClose={closeActiveModal}
       >
