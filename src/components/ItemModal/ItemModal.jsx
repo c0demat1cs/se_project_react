@@ -1,9 +1,9 @@
 import "./ItemModal.css"; // import the ItemModal component styles
 
 // ItemModal component
-function ItemModal({ card, activeModal, onClose }) {
+function ItemModal({ card, isOpen, onClose }) {
   return (
-    <div className={`modal ${activeModal === "preview" && "modal_opened"}`}>
+    <div className={isOpen ? "modal modal_opened" : "modal"}>
       <div className="modal__content modal__content_type_image">
         <button
           onClick={onClose}

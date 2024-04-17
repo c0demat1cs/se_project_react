@@ -1,9 +1,9 @@
 import "./ModalWithForm.css"; // Import the ModalWithForm component styles
 
 // ModalWithForm component
-function ModalWithForm({ children, buttonText, title, activeModal, onClose }) {
+function ModalWithForm({ children, buttonText, title, isOpen, onClose }) {
   return (
-    <div className={`modal ${activeModal === "add-garment" && "modal_opened"}`}>
+    <div className={isOpen ? "modal modal_opened" : "modal"}>
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
         <button onClick={onClose} type="button" className="modal__close">

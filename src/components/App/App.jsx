@@ -14,27 +14,31 @@ import "../../vendor/fonts.css"; // Import the fonts.css file
 
 // App component
 function App() {
+  // Declare the weatherData state variable
   const [weatherData, setWeatherData] = useState({
-    // Declare the weatherData state variable
     type: "",
     temp: { F: 999 },
     city: "",
   });
   const [activeModal, setActiveModal] = useState(""); // Declare the activeModal state variable
   const [selectedCard, setSelectedCard] = useState({}); // Declare the selectedCard state variable
+
   // Function to handle the card click event
   const handleCardClick = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
   };
+
   // Function to handle the add click event
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
+
   // Function to close the active modal
   const closeActiveModal = () => {
     setActiveModal("");
   };
+
   // Fetch the weather data from the OpenWeatherMap API
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -44,6 +48,11 @@ function App() {
       })
       .catch(console.error);
   }, []);
+
+  // Compute a boolean to determine whether the modal is open
+  const isAddGarmentOpen = activeModal === "add-garment";
+  const isItemModalOpen = activeModal === "preview";
+
   // Return the JSX code for the App component
   return (
     <div className="page">
@@ -55,7 +64,7 @@ function App() {
       <ModalWithForm
         title="New garment"
         buttonText="Add garment"
-        activeModal={activeModal}
+        isOpen={isAddGarmentOpen}
         onClose={closeActiveModal}
       >
         <label htmlFor="name" className="modal__label">
@@ -114,7 +123,7 @@ function App() {
         </fieldset>
       </ModalWithForm>
       <ItemModal
-        activeModal={activeModal}
+        isOpen={isItemModalOpen}
         card={selectedCard}
         onClose={closeActiveModal}
       />
