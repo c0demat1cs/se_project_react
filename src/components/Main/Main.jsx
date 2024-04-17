@@ -2,6 +2,7 @@ import "./Main.css"; // Import the Main component styles
 import WeatherCard from "../WeatherCard/WeatherCard"; // Import the WeatherCard component
 import ItemCard from "../ItemCard/ItemCard"; // Import the ItemCard component
 import { defaultClothingItems } from "../../utils/constants"; // Import the defaultClothingItems array
+import "../../vendor/fonts.css"; // Import the fonts.css file
 
 // Main component
 function Main({ weatherData, handleCardClick }) {
