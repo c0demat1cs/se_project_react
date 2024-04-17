@@ -1,0 +1,15 @@
+.modal__content_type_image {
+  padding: 0;
+  margin-bottom: 24px;
+  border-radius: 20px;
+}
+
+.modal__image {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px 20px 0 0;
+}
+
+.modal__footer {
+  padding: 0 28px 28px 28px;
+}
