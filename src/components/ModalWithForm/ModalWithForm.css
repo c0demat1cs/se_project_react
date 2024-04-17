@@ -20,7 +20,7 @@
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
-  font-family: "Cabinet Grotesk", sans-serif;
+  font-family: "CabinetGrotesk-Bold";
 }
 
 .modal__close {
@@ -60,6 +60,7 @@
   font-size: 16px;
   line-height: 20px;
   font-weight: 700;
+  font-family: "CabinetGrotesk-Bold";
 }
 
 .modal__legend {
@@ -67,6 +68,7 @@
   font-size: 16px;
   line-height: 20px;
   font-weight: 700;
+  font-family: "CabinetGrotesk-Bold";
 }
 
 .modal__label_type_radio {

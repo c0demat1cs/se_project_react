@@ -1,7 +1,9 @@
 @font-face {
-  font-family: "Cabinet Grotesk";
+  font-family: "CabinetGrotesk-Bold";
   font-style: normal;
   font-weight: 700;
-  src: url("../../src/vendor/CabinetGrotesk-Bold.woff2") format("woff2"),
-    url("../../src/vendor/CabinetGrotesk-Bold.woff") format("woff");
+  font-display: swap;
+  src: url("./fonts/CabinetGrotesk-Bold.woff2") format("woff2"),
+    url("./fonts/CabinetGrotesk-Bold.woff") format("woff"),
+    url("./fonts/CabinetGrotesk-Bold.ttf") format("truetype");
 }
