@@ -10,6 +10,7 @@ import { coordinates, APIkey } from "../../utils/constants"; // import the coord
 import { getWeather } from "../../utils/weatherApi"; // import the getWeather function
 import { filterWeatherData } from "../../utils/weatherApi"; // import the filterWeatherData function
 import Footer from "../Footer/Footer";
+import "../../vendor/fonts.css"; // Import the fonts.css file
 
 // App component
 function App() {
