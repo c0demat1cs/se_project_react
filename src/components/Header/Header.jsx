@@ -11,9 +11,9 @@ function Header({ handleAddClick, weatherData }) {
   // Return the JSX code for the Header component
   return (
     <header className="header">
-      <img src={logo} className="header__logo" />
-      <p className="header__date-and-location" font-family="Cabinet Grotesk">
-        {currentDate}, {weatherData.city}, {weatherData.temp.F}°
+      <img src={logo} className="header__logo" alt="Header Logo" />
+      <p className="header__date-and-location">
+        {currentDate}, {weatherData.city}
       </p>
       <button
         onClick={handleAddClick}
@@ -24,7 +24,7 @@ function Header({ handleAddClick, weatherData }) {
       </button>
       <div className="header__user_container">
         <p className="header__username">Terence Tegegne</p>
-        <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
+        <img src={avatar} alt="User Photo" className="header__avatar" />
       </div>
     </header>
   );
