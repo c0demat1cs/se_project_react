@@ -15,13 +15,15 @@ export const getWeather = ({ latitude, longitude }, APIkey) => {
 export const filterWeatherData = (data) => {
   const result = {};
   result.city = data.name;
-  result.temp = { F: Math.round(data.main.temp) };
+  result.temp = {
+    F: `${Math.round(data.main.temp)}°F`,
+    C: `${Math.round(((data.main.temp - 32) * 5) / 9)}°C`,
+  };
   result.type = getWeatherType(data.main.temp.F);
   result.condition = data.weather[0].main.toLowerCase();
   result.isDay = isDay(data.sys, Date.now());
-  return result;
+  return result; // Return the filtered weather data from the API response
 };
-
 const isDay = ({ sunrise, sunset }, now) => {
   return sunrise < now * 1000 && now * 1000 < sunset;
 };
