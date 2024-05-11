@@ -23,18 +23,30 @@
   position: absolute;
 }
 
-/* .switch__slider-F {
+.switch__slider-F {
   top: 1px;
   left: 1px;
-} */
+}
 
 .switch__slider-C {
   top: 1px;
-  right: 20px;
+  right: 2px;
   position: absolute;
 }
 
 .switch__active {
   font-size: 16px;
   color: white;
+}
+
+.switch__temp-F {
+  position: absolute;
+  top: -8px;
+  left: 12px;
+}
+
+.switch__temp-C {
+  position: absolute;
+  top: -8px;
+  right: 10px;
 }
