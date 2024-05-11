@@ -50,3 +50,8 @@
 .header__toggle-switch {
   margin: auto 0 auto 20px;
 }
+
+.header__profile-link {
+  text-decoration: none;
+  color: inherit;
+}

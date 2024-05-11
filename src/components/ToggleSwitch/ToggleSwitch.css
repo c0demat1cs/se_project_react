@@ -6,10 +6,11 @@
 
 .switch__box {
   border-radius: 25px;
-  border: 2px solid black;
-  width: 55px;
+  border: 2px solid #7e7e7e;
+  width: 58px;
   height: 32px;
   appearance: none;
+  font-family: "Cabinet Grotesk";
 }
 
 .switch__slider {
@@ -30,23 +31,43 @@
 
 .switch__slider-C {
   top: 1px;
-  right: 2px;
-  position: absolute;
-}
-
-.switch__active {
-  font-size: 16px;
-  color: white;
+  right: 1px;
 }
 
 .switch__temp-F {
   position: absolute;
   top: -8px;
   left: 12px;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  line-height: 17px;
+  text-align: center;
+}
+
+.switch__temp-F.false {
+  color: #7e7e7e;
 }
 
 .switch__temp-C {
   position: absolute;
   top: -8px;
   right: 10px;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  line-height: 17px;
+  text-align: center;
+}
+
+.switch__temp-C.false {
+  color: #7e7e7e;
+}
+
+.switch__inactive {
+  font-size: 16px;
+  color: #7e7e7e;
+}
+
+.switch__active {
+  font-size: 16px;
+  color: white;
 }

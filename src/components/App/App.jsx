@@ -14,6 +14,7 @@ import "../../vendor/fonts.css"; // Import the fonts.css file
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext"; // Import the CurrentTemperatureUnitContext context
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import { getItems } from "../../utils/api";
 
 // App component
 function App() {
@@ -66,6 +67,14 @@ function App() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        console.log(data);
+      })
+      .catch(console.error);
+  }, []);
+
   // Compute a boolean to determine whether the modal is open
   const isAddGarmentOpen = activeModal === "add-garment";
   const isItemModalOpen = activeModal === "preview";
@@ -89,7 +98,10 @@ function App() {
                 />
               }
             />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={<Profile onCardClick={handleCardClick} />}
+            />
           </Routes>
           <Footer />
         </div>

@@ -1,0 +1,5 @@
+.profile__sidebar {
+  display: flex;
+  gap: 20px;
+  padding-top: 20px;
+}
