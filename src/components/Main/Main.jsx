@@ -1,13 +1,13 @@
 import "./Main.css"; // Import the Main component styles
 import WeatherCard from "../WeatherCard/WeatherCard"; // Import the WeatherCard component
 import ItemCard from "../ItemCard/ItemCard"; // Import the ItemCard component
-import { defaultClothingItems } from "../../utils/constants"; // Import the defaultClothingItems array
+// import { defaultClothingItems } from "../../utils/constants"; // Import the defaultClothingItems array
 import "../../vendor/fonts.css"; // Import the fonts.css
 import React, { useContext } from "react";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
 // Main component
-function Main({ weatherData, handleCardClick }) {
+function Main({ weatherData, handleCardClick, clothingItems }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   return (
     <main>
@@ -18,7 +18,7 @@ function Main({ weatherData, handleCardClick }) {
           wear:{" "}
         </p>
         <ul className="cards__list">
-          {defaultClothingItems
+          {clothingItems
             .filter((item) => {
               return item.weather === weatherData.type;
             })

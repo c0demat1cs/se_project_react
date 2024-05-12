@@ -11,6 +11,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
   };
   // Add the URL state
   const [url, setUrl] = useState("");
+  // Handle the URL change
   const handleUrlChange = (e) => {
     console.log(e.target.value);
     setUrl(e.target.value);

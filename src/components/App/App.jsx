@@ -14,7 +14,7 @@ import "../../vendor/fonts.css"; // Import the fonts.css file
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext"; // Import the CurrentTemperatureUnitContext context
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems } from "../../utils/api";
+import { getItems, postItem } from "../../utils/api";
 
 // App component
 function App() {
@@ -27,6 +27,7 @@ function App() {
   const [activeModal, setActiveModal] = useState(""); // Declare the activeModal state variable
   const [selectedCard, setSelectedCard] = useState({}); // Declare the selectedCard state variable
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F"); // Declare the CurrentTemperatureUnit state variables
+  const [clothingItems, setClothingItems] = useState([]); // Declare the clothingItems state variable
 
   // Function to handle the card click event
   const handleCardClick = (card) => {
@@ -56,6 +57,17 @@ function App() {
     // closeActiveModal();
   };
 
+  // add handleAddItemSubmit handler, call correspinding method from api.js
+  // and update the clothingItems state variable with an extended copy of the array
+  // using the spread operator setClothingItems([item, ...clothingItems]);
+  const handleAddItemSubmit = (item) => {
+    postItem(item)
+      .then((newItem) => {
+        setClothingItems([newItem, ...clothingItems]);
+      })
+      .catch(console.error);
+  };
+
   // Fetch the weather data from the OpenWeatherMap API
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -67,10 +79,12 @@ function App() {
       .catch(console.error);
   }, []);
 
+  // Fetch the clothing items from the API
   useEffect(() => {
     getItems()
       .then((data) => {
         console.log(data);
+        setClothingItems(data); // Update the clothingItems state variable
       })
       .catch(console.error);
   }, []);
@@ -92,15 +106,22 @@ function App() {
             <Route
               path="/"
               element={
+                // pass the clothing items as a prop to the Main component
                 <Main
                   weatherData={weatherData}
                   handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
                 />
               }
             />
             <Route
               path="/profile"
-              element={<Profile onCardClick={handleCardClick} />}
+              element={
+                <Profile
+                  onCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
             />
           </Routes>
           <Footer />
