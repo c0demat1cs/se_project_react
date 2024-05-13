@@ -14,7 +14,7 @@ import "../../vendor/fonts.css"; // Import the fonts.css file
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext"; // Import the CurrentTemperatureUnitContext context
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems, postItem } from "../../utils/api";
+import { getItems, postItem, deleteItem } from "../../utils/api";
 
 // App component
 function App() {
@@ -44,7 +44,7 @@ function App() {
   const closeActiveModal = () => {
     setActiveModal("");
   };
-
+  // Function to handle the toggle switch change event
   const handleToggleSwitchChange = () => {
     currentTemperatureUnit === "F"
       ? setCurrentTemperatureUnit("C")
@@ -52,18 +52,29 @@ function App() {
   };
 
   // Function to add an item
-  const onAddItem = (values) => {
-    console.log(values);
-    // closeActiveModal();
-  };
-
   // add handleAddItemSubmit handler, call correspinding method from api.js
   // and update the clothingItems state variable with an extended copy of the array
   // using the spread operator setClothingItems([item, ...clothingItems]);
-  const handleAddItemSubmit = (item) => {
-    postItem(item)
-      .then((newItem) => {
-        setClothingItems([newItem, ...clothingItems]);
+  const onAddItem = (values) => {
+    postItem(values.name, values.imageUrl, values.weather)
+      .then((item) => {
+        setClothingItems([item, ...clothingItems]);
+      })
+      .catch(console.error);
+    closeActiveModal();
+  };
+
+  // function to delete an item
+  // the card is deleted immediately from the UI
+  //In case of immediate removal, the handler, which is passed from the App.js, will contain the corresponding API call. After a successful API request, the clothingItems state should be updated using the filter() method. You should also create a copy of the array and exclude the deleted card from it. Finally, remember to close the item modal window.
+  const handleDeleteItem = () => {
+    deleteItem(selectedCard.id)
+      .then(() => {
+        const updatedItems = clothingItems.filter(
+          (item) => item.id !== selectedCard.id
+        );
+        setClothingItems(updatedItems);
+        closeActiveModal();
       })
       .catch(console.error);
   };
@@ -135,6 +146,7 @@ function App() {
           isOpen={isItemModalOpen}
           card={selectedCard}
           onClose={closeActiveModal}
+          handleDeleteItem={handleDeleteItem}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

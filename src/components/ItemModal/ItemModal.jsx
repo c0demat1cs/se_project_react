@@ -1,7 +1,7 @@
 import "./ItemModal.css"; // import the ItemModal component styles
 
 // ItemModal component
-function ItemModal({ card, isOpen, onClose }) {
+function ItemModal({ card, isOpen, onClose, handleDeleteItem }) {
   return (
     <div className={isOpen ? "modal modal_opened" : "modal"}>
       <div className="modal__content modal__content_type_image">
@@ -12,8 +12,16 @@ function ItemModal({ card, isOpen, onClose }) {
         ></button>
         <img className="modal__image" src={card.imageUrl} alt={card.name} />
         <div className="modal__footer">
-          <h2 className="modal__caption">{card.name}</h2>
-          <p className="card__weather">Weather: {card.weather}</p>
+          <div className="modal__footer_heading">
+            <h2 className="modal__caption">{card.name}</h2>
+            <button
+              onClick={handleDeleteItem}
+              className="modal__footer_delete-button"
+            >
+              Delete Item
+            </button>
+          </div>
+          <p className="modal__footer_card-weather">Weather: {card.weather}</p>
         </div>
       </div>
     </div>
