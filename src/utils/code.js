@@ -27,3 +27,9 @@ const handleAddItemSubmit = (item) => {
     })
     .catch(console.error);
 };
+
+<ul className="clothes-section__cards">
+  {clothingItems.slice(0, -7).map((item) => {
+    return <ItemCard key={item._id} item={item} onCardClick={onCardClick} />;
+  })}
+</ul>;

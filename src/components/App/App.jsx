@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css"; // import the App component styles
 import Header from "../Header/Header"; // import the Header component
 import Main from "../Main/Main"; // import the Main component
-import ModalWithForm from "../ModalWithForm/ModalWithForm"; // import the ModalWithForm component
+// import ModalWithForm from "../ModalWithForm/ModalWithForm"; // import the ModalWithForm component
 import ItemModal from "../ItemModal/ItemModal"; // import the ItemModal component
 import { coordinates, APIkey } from "../../utils/constants"; // import the coordinates and APIkey constants
 import { getWeather } from "../../utils/weatherApi"; // import the getWeather function
@@ -55,6 +55,8 @@ function App() {
   // add handleAddItemSubmit handler, call correspinding method from api.js
   // and update the clothingItems state variable with an extended copy of the array
   // using the spread operator setClothingItems([item, ...clothingItems]);
+  // not sure if this was only meant to close the modal, but I added the api call here
+  // instead of a handleAddItem function
   const onAddItem = (values) => {
     postItem(values.name, values.imageUrl, values.weather)
       .then((item) => {
@@ -66,17 +68,16 @@ function App() {
 
   // function to delete an item
   // the card is deleted immediately from the UI
-  //In case of immediate removal, the handler, which is passed from the App.js, will contain the corresponding API call. After a successful API request, the clothingItems state should be updated using the filter() method. You should also create a copy of the array and exclude the deleted card from it. Finally, remember to close the item modal window.
-  const handleDeleteItem = () => {
-    deleteItem(selectedCard.id)
+  //create a copy of the array and exclude the deleted card from it.
+  // close the item modal window.
+  const handleDeleteItem = (id) => {
+    deleteItem(id)
       .then(() => {
-        const updatedItems = clothingItems.filter(
-          (item) => item.id !== selectedCard.id
-        );
+        const updatedItems = clothingItems.filter((item) => item.id !== id);
         setClothingItems(updatedItems);
-        closeActiveModal();
       })
       .catch(console.error);
+    closeActiveModal();
   };
 
   // Fetch the weather data from the OpenWeatherMap API

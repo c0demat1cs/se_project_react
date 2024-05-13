@@ -8,8 +8,6 @@ function getItems() {
   });
 }
 
-export { getItems };
-
 // post items to the api
 function postItem(name, imageURL, weather) {
   return fetch(`${baseUrl}/items`, {
@@ -17,12 +15,11 @@ function postItem(name, imageURL, weather) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, imageUrl: imageURL, weather }),
+    body: JSON.stringify({ name: name, imageUrl: imageURL, weather: weather }),
   }).then((res) => {
     return res.ok ? res.json() : Promise.reject(res);
   });
 }
-export { postItem };
 
 // delete an item from the api
 function deleteItem(id) {
@@ -32,4 +29,4 @@ function deleteItem(id) {
     return res.ok ? res.json() : Promise.reject(res);
   });
 }
-export { deleteItem };
+export { getItems, postItem, deleteItem };

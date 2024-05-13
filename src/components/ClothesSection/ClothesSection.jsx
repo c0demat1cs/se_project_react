@@ -4,6 +4,7 @@ import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
 
 function ClothesSection({ onCardClick, clothingItems }) {
+  console.log(clothingItems);
   return (
     <div className="clothes-section">
       <div className="clothes-section__container">
@@ -12,6 +13,7 @@ function ClothesSection({ onCardClick, clothingItems }) {
       </div>
       <ul className="clothes-section__cards">
         {clothingItems.map((item) => {
+          // slide added temporarily to debug profile .slice(0, -7)
           return (
             <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
           );

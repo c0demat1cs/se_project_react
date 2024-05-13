@@ -10,7 +10,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
     setName(e.target.value);
   };
   // Add the URL state
-  const [url, setUrl] = useState("");
+  const [imageUrl, setUrl] = useState("");
   // Handle the URL change
   const handleUrlChange = (e) => {
     console.log(e.target.value);
@@ -19,7 +19,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
   // Handle the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem({ name, url });
+    onAddItem({ name, imageUrl, weather });
   };
 
   return (
@@ -48,7 +48,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
           id="imageUrl"
           className="modal__input"
           placeholder="Image URL"
-          value={url}
+          value={imageUrl}
           onChange={handleUrlChange}
         />
       </label>

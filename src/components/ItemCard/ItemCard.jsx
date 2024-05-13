@@ -2,6 +2,7 @@ import "./ItemCard.css"; // import the ItemCard component styles
 
 // ItemCard component
 function ItemCard({ item, onCardClick }) {
+  console.log(item);
   const handleCardClick = () => {
     onCardClick(item);
   };
@@ -12,7 +13,7 @@ function ItemCard({ item, onCardClick }) {
       <img
         onClick={handleCardClick}
         className="card__image"
-        src={item.imageUrl}
+        src={item.imageUrl || ""}
         alt={item.name}
       />
     </li>
