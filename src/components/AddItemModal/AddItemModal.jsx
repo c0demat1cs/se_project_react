@@ -16,6 +16,15 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
     console.log(e.target.value);
     setUrl(e.target.value);
   };
+
+  // add the weather state
+  const [weather, setWeather] = useState("");
+  // handle the weather change
+  const handleWeatherChange = (e) => {
+    console.log(e.target.value);
+    setWeather(e.target.value);
+  };
+
   // Handle the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,6 +69,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
             type="radio"
             className="modal__radio-input"
             name="weatherType"
+            onChange={handleWeatherChange}
           />
           Hot
         </label>
