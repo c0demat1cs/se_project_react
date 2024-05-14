@@ -4,7 +4,7 @@ const baseUrl = "http://localhost:3001";
 // get all items from the api
 function getItems() {
   return fetch(`${baseUrl}/items`).then((res) => {
-    return res.ok ? res.json() : Promise.reject(res);
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });
 }
 
@@ -17,7 +17,7 @@ function postItem(name, imageURL, weather) {
     },
     body: JSON.stringify({ name: name, imageUrl: imageURL, weather: weather }),
   }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(res);
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });
 }
 
@@ -26,7 +26,7 @@ function deleteItem(_id) {
   return fetch(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
   }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(res);
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });
 }
 export { getItems, postItem, deleteItem };
