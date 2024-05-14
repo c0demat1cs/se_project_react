@@ -5,10 +5,9 @@ function ItemModal({ card, isOpen, onClose, onDeleteItem }) {
   const handleDeleteItem = () => {
     onDeleteItem(card._id);
   };
-
   return (
     <div className={isOpen ? "modal modal_opened" : "modal"}>
-      <div className="modal__content modal__content_type_image">
+      <div className="modal__content_type_image">
         <button
           onClick={onClose}
           type="button"

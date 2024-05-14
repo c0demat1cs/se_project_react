@@ -55,10 +55,11 @@ function App() {
   // add handleAddItemSubmit handler, call correspinding method from api.js
   // and update the clothingItems state variable with an extended copy of the array
   // using the spread operator setClothingItems([item, ...clothingItems]);
-  // not sure if this was only meant to close the modal, but I added the api call here
   // instead of a handleAddItem function
   const onAddItem = (values) => {
-    postItem(values.name, values.imageUrl, values.weather)
+    const { name, imageUrl } = values; // destructure object values
+    const weather = weatherData.type; // weather data from state variable
+    postItem(name, imageUrl, weather)
       .then((item) => {
         setClothingItems([item, ...clothingItems]);
       })
@@ -68,7 +69,7 @@ function App() {
 
   // function to delete an item
   // the card is deleted immediately from the UI
-  //create a copy of the array and exclude the deleted card from it.
+  // create a copy of the array and exclude the deleted card from it.
   // close the item modal window.
   const onDeleteItem = (_id) => {
     deleteItem(_id)

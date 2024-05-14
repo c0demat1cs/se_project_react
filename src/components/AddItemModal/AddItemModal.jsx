@@ -70,6 +70,8 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
             className="modal__radio-input"
             name="weatherType"
             onChange={handleWeatherChange}
+            value={weather}
+            onSubmit={handleSubmit}
           />
           Hot
         </label>
@@ -79,6 +81,8 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
             type="radio"
             className="modal__radio-input"
             name="weatherType"
+            value={weather}
+            onSubmit={handleSubmit}
           />
           Warm
         </label>
@@ -88,6 +92,8 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
             type="radio"
             className="modal__radio-input"
             name="weatherType"
+            value={weather}
+            onSubmit={handleSubmit}
           />
           Cold
         </label>
