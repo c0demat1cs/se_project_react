@@ -1,7 +1,11 @@
 import "./ItemModal.css"; // import the ItemModal component styles
 
 // ItemModal component
-function ItemModal({ card, isOpen, onClose, handleDeleteItem }) {
+function ItemModal({ card, isOpen, onClose, onDeleteItem }) {
+  const handleDeleteItem = () => {
+    onDeleteItem(card._id);
+  };
+
   return (
     <div className={isOpen ? "modal modal_opened" : "modal"}>
       <div className="modal__content modal__content_type_image">

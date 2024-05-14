@@ -70,11 +70,10 @@ function App() {
   // the card is deleted immediately from the UI
   //create a copy of the array and exclude the deleted card from it.
   // close the item modal window.
-  const handleDeleteItem = (id) => {
-    deleteItem(id)
+  const onDeleteItem = (_id) => {
+    deleteItem(_id)
       .then(() => {
-        const updatedItems = clothingItems.filter((item) => item.id !== id);
-        setClothingItems(updatedItems);
+        setClothingItems(clothingItems.filter((item) => item._id !== _id));
       })
       .catch(console.error);
     closeActiveModal();
@@ -96,7 +95,7 @@ function App() {
     getItems()
       .then((data) => {
         console.log(data);
-        setClothingItems(data); // Update the clothingItems state variable
+        setClothingItems(data.reverse()); // Update the clothingItems state variable
       })
       .catch(console.error);
   }, []);
@@ -147,7 +146,7 @@ function App() {
           isOpen={isItemModalOpen}
           card={selectedCard}
           onClose={closeActiveModal}
-          handleDeleteItem={handleDeleteItem}
+          onDeleteItem={onDeleteItem}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

@@ -22,8 +22,8 @@ function postItem(name, imageURL, weather) {
 }
 
 // delete an item from the api
-function deleteItem(id) {
-  return fetch(`${baseUrl}/items/${id}`, {
+function deleteItem(_id) {
+  return fetch(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
   }).then((res) => {
     return res.ok ? res.json() : Promise.reject(res);
