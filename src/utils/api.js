@@ -1,5 +1,6 @@
 // set the base url for the api
 const baseUrl = "http://localhost:3001";
+import { processServerResponse } from "./utils.js";
 
 // get all items from the api
 function getItems() {
@@ -16,17 +17,13 @@ function postItem(name, imageURL, weather) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name: name, imageUrl: imageURL, weather: weather }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(processServerResponse);
 }
 
 // delete an item from the api
 function deleteItem(_id) {
   return fetch(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(processServerResponse);
 }
 export { getItems, postItem, deleteItem };
