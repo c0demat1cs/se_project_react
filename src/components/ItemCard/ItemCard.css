@@ -25,4 +25,5 @@
   object-position: center;
   border-radius: 19px;
   border: 1px solid rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }

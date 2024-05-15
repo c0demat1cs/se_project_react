@@ -46,9 +46,7 @@ function App() {
   };
   // Function to handle the toggle switch change event
   const handleToggleSwitchChange = () => {
-    currentTemperatureUnit === "F"
-      ? setCurrentTemperatureUnit("C")
-      : setCurrentTemperatureUnit("F");
+    setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
   // Function to add an item
@@ -62,9 +60,11 @@ function App() {
     postItem(name, imageUrl, weather)
       .then((item) => {
         setClothingItems([item, ...clothingItems]);
+        closeActiveModal();
       })
-      .catch(console.error);
-    closeActiveModal();
+      .catch((error) => {
+        console.error("Error adding item:", error);
+      });
   };
 
   // function to delete an item
@@ -74,10 +74,15 @@ function App() {
   const onDeleteItem = (_id) => {
     deleteItem(_id)
       .then(() => {
-        setClothingItems(clothingItems.filter((item) => item._id !== _id));
+        // filter out the deleted item
+        const updatedItems = clothingItems.filter((item) => item._id !== _id);
+        setClothingItems(updatedItems);
+        // close modal
+        closeActiveModal();
       })
-      .catch(console.error);
-    closeActiveModal();
+      .catch((error) => {
+        console.error("Error deleting item:", error);
+      });
   };
 
   // Fetch the weather data from the OpenWeatherMap API
@@ -132,6 +137,7 @@ function App() {
                 <Profile
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

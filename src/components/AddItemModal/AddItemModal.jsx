@@ -1,35 +1,38 @@
-import React, { useState } from "react";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import React, { useEffect, useState } from "react"; // import hooks useState and useEffect
+import ModalWithForm from "../ModalWithForm/ModalWithForm"; // import the ModalWithForm component
 
 const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
   // Add the name state
   const [name, setName] = useState("");
-  // Handle the name change
+  // Add the imageUrl state
+  const [imageUrl, setUrl] = useState("");
+  // Add the weather state
+  const [weather, setWeather] = useState("");
+  // handle url change
   const handleNameChange = (e) => {
-    console.log(e.target.value);
     setName(e.target.value);
   };
-  // Add the URL state
-  const [imageUrl, setUrl] = useState("");
-  // Handle the URL change
+  // handle url change
   const handleUrlChange = (e) => {
-    console.log(e.target.value);
     setUrl(e.target.value);
   };
-
-  // add the weather state
-  const [weather, setWeather] = useState("");
-  // handle the weather change
+  // handle weather change
   const handleWeatherChange = (e) => {
-    console.log(e.target.value);
     setWeather(e.target.value);
   };
-
-  // Handle the form submission
+  // handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem({ name, imageUrl, weather });
   };
+  // reset form values when modal opens
+  useEffect(() => {
+    if (isAddGarmentOpen) {
+      setName("");
+      setUrl("");
+      setWeather("");
+    }
+  }, [isAddGarmentOpen]); // run effect
 
   return (
     <ModalWithForm
@@ -69,9 +72,9 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
             type="radio"
             className="modal__radio-input"
             name="weatherType"
+            value="hot"
+            checked={weather === "hot"}
             onChange={handleWeatherChange}
-            value={weather}
-            onSubmit={handleSubmit}
           />
           Hot
         </label>
@@ -81,8 +84,9 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
             type="radio"
             className="modal__radio-input"
             name="weatherType"
-            value={weather}
-            onSubmit={handleSubmit}
+            value="warm"
+            checked={weather === "warm"}
+            onChange={handleWeatherChange}
           />
           Warm
         </label>
@@ -92,8 +96,9 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
             type="radio"
             className="modal__radio-input"
             name="weatherType"
-            value={weather}
-            onSubmit={handleSubmit}
+            value="cold"
+            checked={weather === "cold"}
+            onChange={handleWeatherChange}
           />
           Cold
         </label>

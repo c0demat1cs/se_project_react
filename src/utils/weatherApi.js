@@ -1,14 +1,10 @@
+import { processServerResponse } from "./utils";
+
 //  Functions to fetch weather data from OpenWeatherMap API
 export const getWeather = ({ latitude, longitude }, APIkey) => {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
-  ).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-  });
+  ).then(processServerResponse);
 };
 
 // Function to filter the weather data

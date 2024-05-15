@@ -100,7 +100,7 @@
   width: 124px;
   margin-top: 24px;
   padding: 8px 16px;
-  background-color: #0000004d;
+  background-color: #000000;
   color: white;
   font-size: 16px;
   line-height: 20px;
@@ -115,4 +115,5 @@
 
 .modal__submit:hover {
   opacity: 60%;
+  transition: ease-in-out 0.2s;
 }
