@@ -12,6 +12,9 @@ The WTWR app is designed to simplify the daily task of deciding what to wear bas
 
 ## Future Development
 
+- Implement Form Input Validation
+- Deploy to Google Cloud
+
 ## Links
 
 - [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
