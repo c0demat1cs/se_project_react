@@ -18,7 +18,9 @@ function Header({ handleAddClick, weatherData }) {
       <p className="header__date-and-location">
         {currentDate}, {weatherData.city}
       </p>
+      {/* Add the ToggleSwitch component */}
       <ToggleSwitch />
+      {/* Add a button to add clothes */}
       <button
         onClick={handleAddClick}
         type="button"

@@ -14,6 +14,8 @@ import "../../vendor/fonts.css"; // Import the fonts.css file
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext"; // Import the CurrentTemperatureUnitContext context
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 import { getItems, postItem, deleteItem } from "../../utils/api";
 
 // App component
@@ -99,8 +101,11 @@ function App() {
   // Fetch the clothing items from the API
   useEffect(() => {
     getItems()
-      .then((data) => {
-        console.log(data);
+      // pull the value of the data property
+      // and assign to variable called data
+      .then(({ data }) => {
+        // make use of data
+        // console.log(data);
         setClothingItems(data.reverse()); // Update the clothingItems state variable
       })
       .catch(console.error);
@@ -155,6 +160,7 @@ function App() {
           onClose={closeActiveModal}
           onDeleteItem={onDeleteItem}
         />
+        <RegisterModal />
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );

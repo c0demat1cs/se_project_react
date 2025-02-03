@@ -12,6 +12,9 @@ The WTWR app is designed to simplify the daily task of deciding what to wear bas
 
 ## Future Development
 
+- Implement form validation component
+
 ## Links
 
 - [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
+- [se_project_express Project 13] (https://github.com/c0demat1cs/se_project_express.git)

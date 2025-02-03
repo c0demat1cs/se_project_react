@@ -10,20 +10,24 @@ function getItems() {
 }
 
 // post items to the api
-function postItem(name, imageURL, weather) {
+function postItem(name, imageURL, weather, token) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name: name, imageUrl: imageURL, weather: weather }),
   }).then(processServerResponse);
 }
 
 // delete an item from the api
-function deleteItem(_id) {
+function deleteItem(_id, token) {
   return fetch(`${baseUrl}/items/${_id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   }).then(processServerResponse);
 }
 export { getItems, postItem, deleteItem };
