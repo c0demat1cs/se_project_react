@@ -1,33 +1,37 @@
 // set the base url for the api
-const baseUrl = "http://localhost:3001";
+const BASE_URL = "http://localhost:3001";
 import { processServerResponse } from "./utils.js";
 
-// get all items from the api
-function getItems() {
-  return fetch(`${baseUrl}/items`).then((res) => {
+// /signin for user authorization
+function authorize(email, password) {
+  return fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  }).then((res) => {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   });
 }
 
-// post items to the api
-function postItem(name, imageURL, weather, token) {
-  return fetch(`${baseUrl}/items`, {
+// /signup for user registration
+function register(name, avatar, email, password) {
+  return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ name: name, imageUrl: imageURL, weather: weather }),
-  }).then(processServerResponse);
+    body: JSON.stringify({ name, avatar, email, password }),
+  }).then((res) => {
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  });
 }
 
-// delete an item from the api
-function deleteItem(_id, token) {
-  return fetch(`${baseUrl}/items/${_id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(processServerResponse);
+// get all items from the api - unprotected
+function getItems() {
+  return fetch(`${BASE_URL}/items`).then((res) => {
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  });
 }
-export { getItems, postItem, deleteItem };
+export { getItems, register, authorize };

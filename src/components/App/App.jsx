@@ -1,35 +1,70 @@
 import { useEffect, useState } from "react"; // import hooks useState and useEffect
 // import { Routes, Route } from "react-router-dom"; // import the Routes and Route components
-import { Routes, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import "./App.css"; // import the App component styles
 import Header from "../Header/Header"; // import the Header component
 import Main from "../Main/Main"; // import the Main component
 // import ModalWithForm from "../ModalWithForm/ModalWithForm"; // import the ModalWithForm component
 import ItemModal from "../ItemModal/ItemModal"; // import the ItemModal component
 import { coordinates, APIkey } from "../../utils/constants"; // import the coordinates and APIkey constants
-import { getWeather } from "../../utils/weatherApi"; // import the getWeather function
-import { filterWeatherData } from "../../utils/weatherApi"; // import the filterWeatherData function
+import { getWeather, filterWeatherData } from "../../utils/weatherApi"; // import the getWeather function
 import Footer from "../Footer/Footer";
-import "../../vendor/fonts.css"; // Import the fonts.css file
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext"; // Import the CurrentTemperatureUnitContext context
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
-import { getItems, postItem, deleteItem } from "../../utils/api";
+import ProtectedRoute from "../ProtectedRoute";
+import { getItems, register, authorize } from "../../utils/api";
+import { getToken, setToken } from "../../utils/token";
+import * as auth from "../../utils/auth";
+import * as api from "../../utils/api";
+import "../../vendor/fonts.css"; // Import the fonts.css file
 
 // App component
 function App() {
+  // invoke the navigate hook
+  const navigate = useNavigate();
+  // invoke the location hook.
+  const location = useLocation();
   // Declare the weatherData state variable
   const [weatherData, setWeatherData] = useState({
     type: "",
     temp: { F: 999 },
     city: "",
   });
+  const [currentUser, setCurrentUser] = useState({ name: "", avatar: "" }); // Declare the currentUser state variable
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Declare the isLoggedIn state variable
+  const [clothingItems, setClothingItems] = useState([]); // Declare the clothingItems state variable
   const [activeModal, setActiveModal] = useState(""); // Declare the activeModal state variable
   const [selectedCard, setSelectedCard] = useState({}); // Declare the selectedCard state variable
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F"); // Declare the CurrentTemperatureUnit state variables
-  const [clothingItems, setClothingItems] = useState([]); // Declare the clothingItems state variable
+
+  // check the token
+  useEffect(() => {
+    const jwt = getToken();
+    if (!jwt) {
+      return;
+    }
+    // call the function, passing it the JWT
+    auth
+      .getUserInfo(jwt)
+      .then(({ name, email }) => {
+        // if response is successful, log in user, and
+        // save their data to state, and
+        // navigate them to /ducks.
+        setIsLoggedIn(true);
+        setCurrentUser({ name, email });
+      })
+      .catch(console.error);
+  }, []);
 
   // Function to handle the card click event
   const handleCardClick = (card) => {
@@ -92,7 +127,7 @@ function App() {
     getWeather(coordinates, APIkey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
-        console.log(filteredData);
+        // console.log(filteredData);
         setWeatherData(filteredData);
       })
       .catch(console.error);
@@ -111,9 +146,55 @@ function App() {
       .catch(console.error);
   }, []);
 
+  // function for processing registration.
+  // after successful registration, close the modal and sign in the user.
+  const handleRegistration = ({ email, password, name, avatar }) => {
+    auth
+      .register(name, avatar, email, password)
+      .then(() => {
+        closeActiveModal();
+        handleLogin({ email, password });
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+      });
+  };
+
+  // configure user authorization.
+  // createa  function to pass the necessary data to the /signin request.
+  // if a log-in is successful, check that the server gave access in its response
+  // and add it to local storage.
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.jwt) {
+          setToken(data.jwt); // save the token to local storage
+          localStorage.setItem("jwt", data.token);
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Error logging in:", error);
+      });
+  };
+
+  // handle Logout
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setUserData({ name: "", avatar: "" });
+    navigate("/");
+  };
+
   // Compute a boolean to determine whether the modal is open
   const isAddGarmentOpen = activeModal === "add-garment";
   const isItemModalOpen = activeModal === "preview";
+  // add the isLoggedIn variable to App's state with a boolean value to check if the user is authorized
+  const isRegisterOpen = activeModal === "register";
 
   // console.log(currentTemperatureUnit);
   // Return the JSX code for the App component
@@ -121,49 +202,60 @@ function App() {
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
-      <div className="page">
-        <div className="page__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                // pass the clothing items as a prop to the Main component
-                <Main
-                  weatherData={weatherData}
-                  handleCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                />
-              }
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="page">
+          <div className="page__content">
+            <Header
+              handleAddClick={handleAddClick}
+              weatherData={weatherData}
+              isLoggedIn={isLoggedIn}
+              handleLogOut={handleLogout}
             />
-            <Route
-              path="/profile"
-              element={
-                <Profile
-                  onCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                  handleAddClick={handleAddClick}
-                />
-              }
-            />
-          </Routes>
-          <Footer />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  // pass the clothing items as a prop to the Main component
+                  <Main
+                    weatherData={weatherData}
+                    handleCardClick={handleCardClick}
+                    clothingItems={clothingItems}
+                  />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      onCardClick={handleCardClick}
+                      clothingItems={clothingItems}
+                      handleAddClick={handleAddClick}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            <Footer />
+          </div>
+          <AddItemModal
+            closeActiveModal={closeActiveModal}
+            onAddItem={onAddItem}
+            isAddGarmentOpen={isAddGarmentOpen}
+          />
+          <ItemModal
+            isOpen={isItemModalOpen}
+            card={selectedCard}
+            onClose={closeActiveModal}
+            onDeleteItem={onDeleteItem}
+          />
+          <RegisterModal />
+          <LoginModal />
         </div>
-        <AddItemModal
-          closeActiveModal={closeActiveModal}
-          onAddItem={onAddItem}
-          isAddGarmentOpen={isAddGarmentOpen}
-        />
-        <ItemModal
-          isOpen={isItemModalOpen}
-          card={selectedCard}
-          onClose={closeActiveModal}
-          onDeleteItem={onDeleteItem}
-        />
-        <RegisterModal />
-      </div>
+      </CurrentUserContext.Provider>
     </CurrentTemperatureUnitContext.Provider>
   );
 }
+
 // Export the App component
 export default App;
