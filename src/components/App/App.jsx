@@ -103,10 +103,11 @@ function App() {
   const onAddItem = (values) => {
     const { name, imageUrl } = values; // destructure object values
     const weather = weatherData.type; // weather data from state variable
+    const token = getToken(); // get the token from local storage
     auth
-      .postItem(name, imageUrl, weather)
-      .then((item) => {
-        setClothingItems([item, ...clothingItems]);
+      .postItem(name, imageUrl, weather, token)
+      .then((res) => {
+        setClothingItems((prevItems) => [res.data, ...prevItems]);
         closeActiveModal();
       })
       .catch((error) => {
@@ -148,10 +149,10 @@ function App() {
     getItems()
       // pull the value of the data property
       // and assign to variable called data
-      .then((items) => {
+      .then(({ data }) => {
         // make use of data
-        // console.log(data);
-        setClothingItems(items.data.reverse()); // Update the clothingItems state variable
+        console.log(data);
+        setClothingItems(data.reverse()); // Update the clothingItems state variable
       })
       .catch(console.error);
   }, []);

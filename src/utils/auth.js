@@ -23,7 +23,11 @@ function postItem(name, imageURL, weather, token) {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ name: name, imageUrl: imageURL, weather: weather }),
+    body: JSON.stringify({
+      name: name,
+      imageUrl: imageURL,
+      weather: weather,
+    }),
   }).then(processServerResponse);
 }
 

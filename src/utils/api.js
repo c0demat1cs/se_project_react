@@ -30,8 +30,16 @@ function register(name, avatar, email, password) {
 
 // get all items from the api - unprotected
 function getItems() {
-  return fetch(`${BASE_URL}/items`).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  return (
+    fetch(`${BASE_URL}/items`),
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }.then((res) => {
+      return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    })
+  );
 }
 export { getItems, register, authorize };
