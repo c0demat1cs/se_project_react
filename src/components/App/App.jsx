@@ -77,6 +77,15 @@ function App() {
     setActiveModal("add-garment");
   };
 
+  // function to handle the registration click event
+  const handleRegisterClick = () => {
+    setActiveModal("register");
+  };
+  // function to handle the login click event
+  const handleLoginClick = () => {
+    setActiveModal("login");
+  };
+
   // Function to close the active modal
   const closeActiveModal = () => {
     setActiveModal("");
@@ -193,8 +202,8 @@ function App() {
   // Compute a boolean to determine whether the modal is open
   const isAddGarmentOpen = activeModal === "add-garment";
   const isItemModalOpen = activeModal === "preview";
-  // add the isLoggedIn variable to App's state with a boolean value to check if the user is authorized
   const isRegisterOpen = activeModal === "register";
+  const isLoginOpen = activeModal === "login";
 
   // console.log(currentTemperatureUnit);
   // Return the JSX code for the App component
@@ -202,14 +211,17 @@ function App() {
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
-      <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider
+        value={{ isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser }}
+      >
         <div className="page">
           <div className="page__content">
             <Header
               handleAddClick={handleAddClick}
               weatherData={weatherData}
               isLoggedIn={isLoggedIn}
-              handleLogOut={handleLogout}
+              handleLoginClick={handleLoginClick}
+              handleRegisterClick={handleRegisterClick}
             />
             <Routes>
               <Route
@@ -249,7 +261,7 @@ function App() {
             onClose={closeActiveModal}
             onDeleteItem={onDeleteItem}
           />
-          <RegisterModal />
+          <RegisterModal isOpen={isRegisterOpen} onClose={closeActiveModal} />
           <LoginModal />
         </div>
       </CurrentUserContext.Provider>
