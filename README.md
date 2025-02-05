@@ -1,6 +1,6 @@
 # WTWR (What to Wear?)
 
-The WTWR app is designed to simplify the daily task of deciding what to wear based on current weather conditions. By integrating teh weather API, the app provides users with real-time weather information, including temperature and location. Users can view a set of clothing options tailored to the current weather, helping them make informed decisions about their attire for the day. Additionally, the app offeres functionality such as modal displays for adding new garments and viewing detailed images. With a focus on user convenience and intuitive design, WTWR aims to steramline the process of dreassing appropriately for any weather condition.
+The WTWR app is designed to simplify the daily task of deciding what to wear based on current weather conditions. By integrating the weather API, the app provides users with real-time weather information, including temperature and location. Users can view a set of clothing options tailored to the current weather, helping them make informed decisions about their attire for the day. Additionally, the app offeres functionality such as modal displays for adding new garments and viewing detailed images. With a focus on user convenience and intuitive design, WTWR aims to steramline the process of dreassing appropriately for any weather condition.
 
 ## About the project
 
@@ -12,7 +12,8 @@ The WTWR app is designed to simplify the daily task of deciding what to wear bas
 
 ## Future Development
 
-- Implement form validation component
+- Implement Form Input Validation
+- Deploy to Google Cloud
 
 ## Links
 

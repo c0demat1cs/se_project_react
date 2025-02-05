@@ -138,10 +138,10 @@ function App() {
     getItems()
       // pull the value of the data property
       // and assign to variable called data
-      .then(({ data }) => {
+      .then((items) => {
         // make use of data
         // console.log(data);
-        setClothingItems(data.reverse()); // Update the clothingItems state variable
+        setClothingItems(items.data.reverse()); // Update the clothingItems state variable
       })
       .catch(console.error);
   }, []);
