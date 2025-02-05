@@ -5,7 +5,6 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 
 export default function ProtectedRoute({ children }) {
   const location = useLocation();
-  const from = location.state?.form || "/";
 
   // destructure isLoggedIn from the value provided by the CurrentUserContext
   const { isLoggedIn } = useContext(CurrentUserContext);
@@ -14,7 +13,6 @@ export default function ProtectedRoute({ children }) {
 
   // if user is not logged in, redirect to the login page
   if (!isLoggedIn) {
-    console.log("redirecting to login");
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
