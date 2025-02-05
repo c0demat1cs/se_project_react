@@ -22,7 +22,13 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import ProtectedRoute from "../ProtectedRoute";
-import { getItems, register, authorize } from "../../utils/api";
+import {
+  getItems,
+  postItem,
+  deleteItem,
+  likeItem,
+  unlikeItem,
+} from "../../utils/api";
 import { getToken, setToken } from "../../utils/token";
 import * as auth from "../../utils/auth";
 import * as api from "../../utils/api";
@@ -160,7 +166,7 @@ function App() {
   // function for processing registration.
   // after successful registration, close the modal and sign in the user.
   const onRegistration = ({ email, password, name, avatar }) => {
-    api
+    auth
       .register(name, avatar, email, password)
       .then(() => {
         closeActiveModal();
@@ -179,7 +185,7 @@ function App() {
     if (!email || !password) {
       return;
     }
-    api
+    auth
       .authorize(email, password)
       .then((data) => {
         if (data.token) {
