@@ -36,7 +36,6 @@ function Header({
       <p className="header__date-and-location">
         {currentDate}, {weatherData.city}
       </p>
-      {/* Add the ToggleSwitch component */}
       <ToggleSwitch />
       {/* Conditional UI Based on Login Status  */}
       {isLoggedIn ? (

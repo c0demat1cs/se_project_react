@@ -11,12 +11,10 @@ export default function ProtectedRoute({ children }) {
   const { isLoggedIn } = useContext(CurrentUserContext);
 
   // if the user is logged in, redirect away from anonymous routes
-  if (isLoggedIn) {
-    return <Navigate to={from} />;
-  }
 
   // if user is not logged in, redirect to the login page
   if (!isLoggedIn) {
+    console.log("redirecting to login");
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
