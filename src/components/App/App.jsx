@@ -103,7 +103,8 @@ function App() {
   const onAddItem = (values) => {
     const { name, imageUrl } = values; // destructure object values
     const weather = weatherData.type; // weather data from state variable
-    postItem(name, imageUrl, weather)
+    auth
+      .postItem(name, imageUrl, weather)
       .then((item) => {
         setClothingItems([item, ...clothingItems]);
         closeActiveModal();
@@ -158,11 +159,11 @@ function App() {
   // function for processing registration.
   // after successful registration, close the modal and sign in the user.
   const onRegistration = ({ email, password, name, avatar }) => {
-    auth
+    api
       .register(name, avatar, email, password)
       .then(() => {
         closeActiveModal();
-        handleLogin({ email, password });
+        onLogin({ email, password });
       })
       .catch((error) => {
         console.error("Error registering user:", error);
@@ -200,13 +201,13 @@ function App() {
       });
   };
 
-  // handle Logout
-  const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    setIsLoggedIn(false);
-    setUserData({ name: "", avatar: "" });
-    navigate("/");
-  };
+  // // handle Logout
+  // const handleLogout = () => {
+  //   localStorage.removeItem("jwt");
+  //   setIsLoggedIn(false);
+  //   setUserData({ name: "", avatar: "" });
+  //   navigate("/");
+  // };
 
   // Compute a boolean to determine whether the modal is open
   const isAddGarmentOpen = activeModal === "add-garment";

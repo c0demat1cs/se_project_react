@@ -18,7 +18,8 @@
 
 .header__add-clothes-button,
 .header__signin-button,
-.header__register-button {
+.header__register-button,
+.header__signout-button {
   margin: 0 20px 0;
   font-size: 20px;
   line-height: 24px;

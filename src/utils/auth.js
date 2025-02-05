@@ -1,5 +1,6 @@
 // specify the BASE_URL for the backend server
 export const BASE_URL = "http://localhost:3001";
+import { processServerResponse } from "./utils";
 
 // /users/me to check the token
 function getUserInfo(token) {

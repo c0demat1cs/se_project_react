@@ -58,9 +58,6 @@ function Header({
               <div className="header__avatar-placeholder">{userInitial}</div>
             )}
           </div>
-          <button onClick={handleLogout} className="header__button">
-            Sign Out
-          </button>
         </>
       ) : (
         <>
