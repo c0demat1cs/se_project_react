@@ -13,9 +13,8 @@ const LoginModal = ({ closeActiveModal, onLogin, isLoginOpen }) => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
   // handle form submit
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     onLogin({ email, password });
   };
@@ -34,7 +33,7 @@ const LoginModal = ({ closeActiveModal, onLogin, isLoginOpen }) => {
       buttonText="Log in"
       isOpen={isLoginOpen}
       onClose={closeActiveModal}
-      onSubmit={handleSubmit}
+      onSubmit={handleLogin}
     >
       <label htmlFor="email" className="modal__label">
         Email{" "}

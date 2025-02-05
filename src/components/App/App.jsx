@@ -157,7 +157,7 @@ function App() {
 
   // function for processing registration.
   // after successful registration, close the modal and sign in the user.
-  const handleRegistration = ({ email, password, name, avatar }) => {
+  const onRegistration = ({ email, password, name, avatar }) => {
     auth
       .register(name, avatar, email, password)
       .then(() => {
@@ -173,17 +173,26 @@ function App() {
   // createa  function to pass the necessary data to the /signin request.
   // if a log-in is successful, check that the server gave access in its response
   // and add it to local storage.
-  const handleLogin = ({ email, password }) => {
+  const onLogin = ({ email, password }) => {
     if (!email || !password) {
       return;
     }
-    auth
+    api
       .authorize(email, password)
       .then((data) => {
-        if (data.jwt) {
-          setToken(data.jwt); // save the token to local storage
+        if (data.token) {
+          setToken(data.token); // Save the token to local storage
           localStorage.setItem("jwt", data.token);
           setIsLoggedIn(true);
+
+          // Fetch user info
+          auth
+            .getUserInfo(data.token)
+            .then(({ name, avatar }) => {
+              setCurrentUser({ name, avatar });
+              closeActiveModal();
+            })
+            .catch(console.error);
         }
       })
       .catch((error) => {
@@ -261,8 +270,16 @@ function App() {
             onClose={closeActiveModal}
             onDeleteItem={onDeleteItem}
           />
-          <RegisterModal isOpen={isRegisterOpen} onClose={closeActiveModal} />
-          <LoginModal />
+          <RegisterModal
+            isRegisterOpen={isRegisterOpen}
+            onRegistration={onRegistration}
+            closeActiveModal={closeActiveModal}
+          />
+          <LoginModal
+            isLoginOpen={isLoginOpen}
+            onLogin={onLogin}
+            closeActiveModal={closeActiveModal}
+          />
         </div>
       </CurrentUserContext.Provider>
     </CurrentTemperatureUnitContext.Provider>

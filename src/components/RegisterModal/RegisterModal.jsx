@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react"; // import hooks useState and
 import ModalWithForm from "../ModalWithForm/ModalWithForm"; // reuse the ModalWithForm component
 
 // RegisterModal is the component for user registration with the necessary state variables
-const RegisterModal = ({ closeActiveModal, onRegister, isRegisterOpen }) => {
+const RegisterModal = ({
+  closeActiveModal,
+  onRegistration,
+  isRegisterOpen,
+}) => {
   const [email, setEmail] = useState(""); // Declare the email state variable
   const [password, setPassword] = useState(""); // Declare the password state variable
   const [name, setName] = useState(""); // Declare the name state variable
@@ -23,9 +27,9 @@ const RegisterModal = ({ closeActiveModal, onRegister, isRegisterOpen }) => {
   };
 
   // handle form submit
-  const handleSubmit = (e) => {
+  const handleRegistration = (e) => {
     e.preventDefault();
-    onRegister({ email, password, name, avatar });
+    onRegistration({ email, password, name, avatar });
   };
 
   // reset form values when modal opens
@@ -44,7 +48,7 @@ const RegisterModal = ({ closeActiveModal, onRegister, isRegisterOpen }) => {
       buttonText="Register"
       isOpen={isRegisterOpen}
       onClose={closeActiveModal}
-      onSubmit={handleSubmit}
+      onSubmit={handleRegistration}
     >
       <label htmlFor="email" className="modal__label">
         Email{" "}

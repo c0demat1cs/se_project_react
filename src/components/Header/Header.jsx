@@ -13,7 +13,7 @@ function Header({
   handleLoginClick,
   handleRegisterClick,
 }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const navigate = useNavigate();
 
   const name = currentUser?.name || "Guest";
