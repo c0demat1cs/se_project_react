@@ -39,7 +39,7 @@ const LoginModal = ({ closeActiveModal, onLogin, isLoginOpen }) => {
         Email{" "}
         <input
           type="email"
-          id="email"
+          id="login__email"
           className="modal__input"
           placeholder="Email"
           value={email}
@@ -50,7 +50,7 @@ const LoginModal = ({ closeActiveModal, onLogin, isLoginOpen }) => {
         Password{" "}
         <input
           type="password"
-          id="password"
+          id="login__password"
           className="modal__input"
           placeholder="Password"
           value={password}

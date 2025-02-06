@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   align-content: flex-start;
   font: 20px/24px "Cabinet Grotesk";
-  width: 229px;
+  max-width: 229px;
 }
 
 .sidebar__avatar {
@@ -22,8 +22,19 @@
   font-weight: 700;
 }
 
-.sidebar__signout-button,
 .sidebar__change-profile-button {
+  height: 25px;
+  margin-top: 24px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+  font-family: "Cabinet Grotesk";
+}
+
+.sidebar__signout-button {
   height: 25px;
   margin-top: 8px;
   font-size: 20px;

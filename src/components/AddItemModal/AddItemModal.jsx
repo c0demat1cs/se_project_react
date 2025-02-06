@@ -46,7 +46,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
         Name{" "}
         <input
           type="text"
-          id="name"
+          id="add__name"
           className="modal__input"
           placeholder="Name"
           value={name}

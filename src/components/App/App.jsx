@@ -22,6 +22,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import DeleteItemModal from "../DeleteItemModal/DeleteItemModal";
 import ProtectedRoute from "../ProtectedRoute";
 import {
   getItems,
@@ -48,7 +49,11 @@ function App() {
     temp: { F: 999 },
     city: "",
   });
-  const [currentUser, setCurrentUser] = useState({ name: "", avatar: "" }); // Declare the currentUser state variable
+  const [currentUser, setCurrentUser] = useState({
+    name: "",
+    avatar: "",
+    _id: "",
+  }); // Declare the currentUser state variable
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Declare the isLoggedIn state variable
   const [clothingItems, setClothingItems] = useState([]); // Declare the clothingItems state variable
   const [activeModal, setActiveModal] = useState(""); // Declare the activeModal state variable
@@ -67,7 +72,6 @@ function App() {
       .then(({ name, email, avatar }) => {
         // if response is successful, log in user, and
         // save their data to state, and
-        // navigate them to /ducks.
         setIsLoggedIn(true);
         setCurrentUser({ name, email, avatar });
       })
@@ -96,8 +100,8 @@ function App() {
 
   // function to handle edit profile click event
   const handleEditProfileClick = () => {
-    setCurrentUser(currentUser);
     setActiveModal("edit-profile");
+    setCurrentUser(currentUser);
     console.log(currentUser);
   };
 
@@ -136,7 +140,9 @@ function App() {
   // create a copy of the array and exclude the deleted card from it.
   // close the item modal window.
   const onDeleteItem = (_id) => {
-    deleteItem(_id)
+    const token = getToken();
+    api
+      .deleteItem(_id, token)
       .then(() => {
         // filter out the deleted item
         const updatedItems = clothingItems.filter((item) => item._id !== _id);
@@ -247,6 +253,7 @@ function App() {
   const isRegisterOpen = activeModal === "register";
   const isLoginOpen = activeModal === "login";
   const isEditProfileOpen = activeModal === "edit-profile";
+  const isDeleteItemOpen = activeModal === "delete-item";
 
   // console.log(currentTemperatureUnit);
   // Return the JSX code for the App component
@@ -303,7 +310,6 @@ function App() {
             isOpen={isItemModalOpen}
             card={selectedCard}
             onClose={closeActiveModal}
-            onDeleteItem={onDeleteItem}
           />
           <RegisterModal
             isRegisterOpen={isRegisterOpen}
@@ -318,6 +324,11 @@ function App() {
           <EditProfileModal
             isEditProfileOpen={isEditProfileOpen}
             onEditProfile={onEditProfile}
+            closeActiveModal={closeActiveModal}
+          />
+          <DeleteItemModal
+            isOpen={isDeleteItemOpen}
+            onDeleteItem={onDeleteItem}
             closeActiveModal={closeActiveModal}
           />
         </div>

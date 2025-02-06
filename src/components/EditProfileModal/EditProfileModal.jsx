@@ -19,8 +19,8 @@ const EditProfileModal = ({
 
   useEffect(() => {
     if (isEditProfileOpen) {
-      setName(name);
-      setAvatar(avatar);
+      setName(currentUser.name);
+      setAvatar(currentUser.avatar);
     }
   }, [isEditProfileOpen, currentUser]); // run effect
 
@@ -50,7 +50,7 @@ const EditProfileModal = ({
         Name {name}
         <input
           type="text"
-          id="name"
+          id="edit__name"
           className="modal__input"
           value={name}
           placeholder="Name"
@@ -62,7 +62,7 @@ const EditProfileModal = ({
         Avatar URL{" "}
         <input
           type="url"
-          id="avatar"
+          id="edit__avatar"
           className="modal__input"
           value={avatar}
           placeholder="Avatar URL"

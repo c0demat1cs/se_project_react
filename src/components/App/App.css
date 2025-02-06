@@ -3,6 +3,7 @@
 }
 
 .page__content {
+  height: 100vh;
   max-width: 1360px;
   margin: 0 auto;
   padding: 0 16px;

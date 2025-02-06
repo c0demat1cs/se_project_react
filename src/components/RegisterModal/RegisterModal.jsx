@@ -54,7 +54,7 @@ const RegisterModal = ({
         Email{" "}
         <input
           type="email"
-          id="email"
+          id="register__email"
           className="modal__input"
           placeholder="Email"
           value={email}
@@ -65,7 +65,7 @@ const RegisterModal = ({
         Password{" "}
         <input
           type="password"
-          id="password"
+          id="register__password"
           className="modal__input"
           placeholder="Password"
           value={password}
@@ -76,7 +76,7 @@ const RegisterModal = ({
         Name{" "}
         <input
           type="text"
-          id="name"
+          id="register__name"
           className="modal__input"
           placeholder="Name"
           value={name}
@@ -87,7 +87,7 @@ const RegisterModal = ({
         Avatar{" "}
         <input
           type="url"
-          id="avatar"
+          id="register__avatar"
           className="modal__input"
           placeholder="Avatar URL"
           value={avatar}
