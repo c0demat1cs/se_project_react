@@ -1,7 +1,7 @@
 import React from "react";
 import "./DeleteItemModal.css"; // Import CSS for styling
 
-const DeleteItemModal = ({ card, isOpen, onDeleteItem }) => {
+const DeleteItemModal = ({ card, isOpen, onClose, onDeleteItem }) => {
   const handleDeleteItem = () => {
     onDeleteItem(card._id);
   };
