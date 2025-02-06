@@ -110,7 +110,7 @@ function App() {
     const { name, imageUrl } = values; // destructure object values
     const weather = weatherData.type; // weather data from state variable
     const token = getToken(); // get the token from local storage
-    auth
+    api
       .postItem(name, imageUrl, weather, token)
       .then((res) => {
         setClothingItems((prevItems) => [res.data, ...prevItems]);
