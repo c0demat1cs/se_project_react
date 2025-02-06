@@ -39,9 +39,9 @@ import "../../vendor/fonts.css"; // Import the fonts.css file
 // App component
 function App() {
   // invoke the navigate hook
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // invoke the location hook.
-  const location = useLocation();
+  // const location = useLocation();
   // Declare the weatherData state variable
   const [weatherData, setWeatherData] = useState({
     type: "",
@@ -57,19 +57,19 @@ function App() {
 
   // check the token
   useEffect(() => {
-    const jwt = getToken();
-    if (!jwt) {
+    const token = getToken();
+    if (!token) {
       return;
     }
     // call the function, passing it the JWT
     auth
-      .getUserInfo(jwt)
-      .then(({ name, email }) => {
+      .getUserInfo(token)
+      .then(({ name, email, avatar }) => {
         // if response is successful, log in user, and
         // save their data to state, and
         // navigate them to /ducks.
         setIsLoggedIn(true);
-        setCurrentUser({ name, email });
+        setCurrentUser({ name, email, avatar });
       })
       .catch(console.error);
   }, []);
@@ -96,8 +96,9 @@ function App() {
 
   // function to handle edit profile click event
   const handleEditProfileClick = () => {
-    setActiveModal("edit-profile");
     setCurrentUser(currentUser);
+    setActiveModal("edit-profile");
+    console.log(currentUser);
   };
 
   // Function to close the active modal
@@ -286,7 +287,6 @@ function App() {
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
                       handleEditProfileClick={handleEditProfileClick}
-                      currentUser={currentUser}
                     />
                   </ProtectedRoute>
                 }

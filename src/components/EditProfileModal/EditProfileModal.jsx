@@ -12,14 +12,15 @@ const EditProfileModal = ({
   onEditProfile,
   isEditProfileOpen,
 }) => {
-  const currentUser = useContext(CurrentUserContext); // get the current user data
-  const [name, setName] = useState(currentUser.name || ""); // Declare the name state variable
-  const [avatar, setAvatar] = useState(currentUser.avatar || ""); // Declare the avatar state variable
+  const { currentUser } = useContext(CurrentUserContext); // get the current user data
+
+  const [name, setName] = useState(currentUser.name); // Declare the name state variable
+  const [avatar, setAvatar] = useState(currentUser.avatar); // Declare the avatar state variable
 
   useEffect(() => {
     if (isEditProfileOpen) {
-      setName(currentUser.name || "");
-      setAvatar(currentUser.avatar || "");
+      setName(name);
+      setAvatar(avatar);
     }
   }, [isEditProfileOpen, currentUser]); // run effect
 
@@ -40,19 +41,19 @@ const EditProfileModal = ({
   return (
     <ModalWithForm
       title="Edit profile"
-      buttonText="Save"
+      buttonText="Save changes"
       isOpen={isEditProfileOpen}
       onClose={closeActiveModal}
       onSubmit={handleEditProfile}
     >
       <label htmlFor="name" className="modal__label">
-        Name{" "}
+        Name {name}
         <input
           type="text"
           id="name"
           className="modal__input"
+          value={name}
           placeholder="Name"
-          value={currentUser.name}
           onChange={handleNameChange}
           required
         />
@@ -63,8 +64,8 @@ const EditProfileModal = ({
           type="url"
           id="avatar"
           className="modal__input"
+          value={avatar}
           placeholder="Avatar URL"
-          value={currentUser.avatar}
           onChange={handleAvatarChange}
           required
         />

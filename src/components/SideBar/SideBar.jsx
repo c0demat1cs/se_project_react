@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import "./SideBar.css";
 
 function SideBar({ handleProfileEditClick }) {
-  const { currentUser } = React.useContext(CurrentUserContext);
-  const avatar = currentUser?.avatar || null;
-  const name = currentUser?.name || "Guest";
+  const { currentUser } = useContext(CurrentUserContext);
+  const avatar = currentUser.avatar;
+  const name = currentUser.name;
 
   return (
     <div className="sidebar">
