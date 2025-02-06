@@ -2,7 +2,6 @@ import "./ItemCard.css"; // import the ItemCard component styles
 
 // ItemCard component
 function ItemCard({ item, onCardClick }) {
-  console.log(item);
   const handleCardClick = () => {
     onCardClick(item);
   };

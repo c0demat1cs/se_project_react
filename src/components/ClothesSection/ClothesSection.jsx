@@ -8,7 +8,6 @@ function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
   const { currentUser } = useContext(CurrentUserContext);
   const isOwn = clothingItems.owner === currentUser._id;
 
-  console.log(clothingItems);
   return (
     <div className="clothes-section">
       <div className="clothes-section__container">

@@ -4,11 +4,16 @@ import ClothesSection from "../ClothesSection/ClothesSection";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./Profile.css";
 
-function Profile({ onCardClick, clothingItems, handleAddClick }) {
+function Profile({
+  onCardClick,
+  clothingItems,
+  handleAddClick,
+  handleEditProfileClick,
+}) {
   return (
     <>
       <section className="profile__sidebar">
-        <SideBar />
+        <SideBar handleProfileEditClick={handleEditProfileClick} />
         <section className="profile__clothes-section"></section>
         <ClothesSection
           onCardClick={onCardClick}
@@ -19,5 +24,4 @@ function Profile({ onCardClick, clothingItems, handleAddClick }) {
     </>
   );
 }
-
 export default Profile;

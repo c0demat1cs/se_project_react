@@ -21,6 +21,7 @@ import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import ProtectedRoute from "../ProtectedRoute";
 import {
   getItems,
@@ -28,6 +29,7 @@ import {
   deleteItem,
   likeItem,
   unlikeItem,
+  editProfile,
 } from "../../utils/api";
 import { getToken, setToken } from "../../utils/token";
 import * as auth from "../../utils/auth";
@@ -92,10 +94,17 @@ function App() {
     setActiveModal("login");
   };
 
+  // function to handle edit profile click event
+  const handleEditProfileClick = () => {
+    setActiveModal("edit-profile");
+    setCurrentUser(currentUser);
+  };
+
   // Function to close the active modal
   const closeActiveModal = () => {
     setActiveModal("");
   };
+
   // Function to handle the toggle switch change event
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -208,6 +217,21 @@ function App() {
       });
   };
 
+  // function to edit the user profile
+  // current user's data should be filled in the form.
+  // make an API call that sends new user name and the avatar URL to the server.
+  const onEditProfile = ({ name, avatar }) => {
+    const token = getToken();
+    editProfile(name, avatar, token)
+      .then(({ name, avatar }) => {
+        setCurrentUser({ name, avatar });
+        closeActiveModal();
+      })
+      .catch((error) => {
+        console.error("Error editing profile:", error);
+      });
+  };
+
   // // handle Logout
   // const handleLogout = () => {
   //   localStorage.removeItem("jwt");
@@ -221,6 +245,7 @@ function App() {
   const isItemModalOpen = activeModal === "preview";
   const isRegisterOpen = activeModal === "register";
   const isLoginOpen = activeModal === "login";
+  const isEditProfileOpen = activeModal === "edit-profile";
 
   // console.log(currentTemperatureUnit);
   // Return the JSX code for the App component
@@ -260,6 +285,8 @@ function App() {
                       onCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
+                      handleEditProfileClick={handleEditProfileClick}
+                      currentUser={currentUser}
                     />
                   </ProtectedRoute>
                 }
@@ -286,6 +313,11 @@ function App() {
           <LoginModal
             isLoginOpen={isLoginOpen}
             onLogin={onLogin}
+            closeActiveModal={closeActiveModal}
+          />
+          <EditProfileModal
+            isEditProfileOpen={isEditProfileOpen}
+            onEditProfile={onEditProfile}
             closeActiveModal={closeActiveModal}
           />
         </div>

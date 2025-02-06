@@ -63,4 +63,19 @@ function unlikeItem(_id, token) {
   }).then(processServerResponse);
 }
 
-export { getItems, postItem, deleteItem, likeItem, unlikeItem };
+// edit profile
+function editProfile(name, avatar, token) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: name,
+      avatar: avatar,
+    }),
+  }).then(processServerResponse);
+}
+
+export { getItems, postItem, deleteItem, likeItem, unlikeItem, editProfile };
