@@ -1,12 +1,23 @@
 import React, { useContext } from "react";
-// import { defaultClothingItems } from "../../utils/constants";
 import ItemCard from "../ItemCard/ItemCard";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./ClothesSection.css";
 
 function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
   const { currentUser } = useContext(CurrentUserContext);
-  const isOwn = clothingItems.owner === currentUser._id;
+
+  // Filter clothing items to only show the items added by the current user
+  const userItems = clothingItems.filter(
+    (item) => item.owner === currentUser._id
+  );
+
+  // debuggin logs
+  console.log("Current User:", currentUser);
+  console.log("Clothing Items:", clothingItems);
+  console.log(
+    "Filtered User Items:",
+    clothingItems.filter((item) => item.owner === currentUser._id)
+  );
 
   return (
     <div className="clothes-section">
@@ -16,16 +27,15 @@ function ClothesSection({ onCardClick, clothingItems, handleAddClick }) {
           + Add New
         </button>
       </div>
-      {isOwn && (
-        <ul className="clothes-section__cards">
-          {clothingItems.map((item) => {
-            // slide added temporarily to debug profile .slice(0, -7)
-            return (
-              <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
-            );
-          })}
-        </ul>
-      )}
+      <ul className="clothes-section__cards">
+        {userItems.length > 0 ? (
+          userItems.map((item) => (
+            <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
+          ))
+        ) : (
+          <p className="clothes-section__empty">No items added yet.</p>
+        )}
+      </ul>
     </div>
   );
 }

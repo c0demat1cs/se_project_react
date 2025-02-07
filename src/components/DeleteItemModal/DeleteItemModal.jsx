@@ -10,7 +10,7 @@ const DeleteItemModal = ({ card, isOpen, closeActiveModal, onDeleteItem }) => {
   const itemConfirmDeleteClassname = `modal__button modal__button_confirm ${
     isOwn ? "" : "modal__button_hidden"
   }`;
-
+  //   console.log("Card ID:", card._id);
   const handleDeleteItem = () => {
     onDeleteItem(card._id);
   };

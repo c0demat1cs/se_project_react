@@ -67,15 +67,7 @@ function App() {
       return;
     }
     // call the function, passing it the JWT
-    auth
-      .getUserInfo(token)
-      .then(({ name, email, avatar }) => {
-        // if response is successful, log in user, and
-        // save their data to state, and
-        setIsLoggedIn(true);
-        setCurrentUser({ name, email, avatar });
-      })
-      .catch(console.error);
+    getUserInfo();
   }, []);
 
   // Function to handle the card click event
@@ -118,6 +110,19 @@ function App() {
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
+
+  // function to get user info
+  function getUserInfo() {
+    const token = getToken();
+    auth
+      .getUserInfo(token)
+      .then((user) => {
+        setIsLoggedIn(true);
+        setCurrentUser(user);
+        closeActiveModal();
+      })
+      .catch(console.error);
+  }
 
   // Function to add an item
   // add handleAddItemSubmit handler, call correspinding method from api.js
@@ -202,25 +207,14 @@ function App() {
   // if a log-in is successful, check that the server gave access in its response
   // and add it to local storage.
   const onLogin = ({ email, password }) => {
-    if (!email || !password) {
-      return;
-    }
+    if (!email || !password) return;
     auth
       .authorize(email, password)
       .then((data) => {
         if (data.token) {
           setToken(data.token); // Save the token to local storage
           localStorage.setItem("jwt", data.token);
-          setIsLoggedIn(true);
-
-          // Fetch user info
-          auth
-            .getUserInfo(data.token)
-            .then(({ name, avatar }) => {
-              setCurrentUser({ name, avatar });
-              closeActiveModal();
-            })
-            .catch(console.error);
+          getUserInfo();
         }
       })
       .catch((error) => {
