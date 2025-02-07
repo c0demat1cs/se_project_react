@@ -1,7 +1,12 @@
-import React from "react";
 import "./DeleteItemModal.css"; // Import CSS for styling
+import React, { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-const DeleteItemModal = ({ card, isOpen, onClose, onDeleteItem }) => {
+const DeleteItemModal = ({ card, isOpen, closeActiveModal, onDeleteItem }) => {
+  const { currentUser } = useContext(CurrentUserContext);
+
+  //   const isOwn = card.owner === currentUser._id;
+
   const handleDeleteItem = () => {
     onDeleteItem(card._id);
   };
@@ -23,7 +28,7 @@ const DeleteItemModal = ({ card, isOpen, onClose, onDeleteItem }) => {
             Yes, delete item
           </button>
           <button
-            onClick={onClose}
+            onClick={closeActiveModal}
             className="modal__button modal__button_cancel"
           >
             Cancel
