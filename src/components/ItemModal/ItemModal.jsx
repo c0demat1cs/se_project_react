@@ -3,7 +3,7 @@ import { useContext } from "react"; // Import the useContext hook
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 // ItemModal component
-function ItemModal({ card, isOpen, onClose, DeleteItemModal }) {
+function ItemModal({ card, isOpen, onClose, handleOpenDelete }) {
   const { currentUser } = useContext(CurrentUserContext);
   // Checking if the current user is the owner of the current clothing item
   const isOwn = card.owner === currentUser._id;
@@ -25,7 +25,7 @@ function ItemModal({ card, isOpen, onClose, DeleteItemModal }) {
           <div className="modal__footer_heading">
             <h2 className="modal__caption">{card.name}</h2>
             <button
-              onClick={DeleteItemModal}
+              onClick={handleOpenDelete}
               className={itemDeleteButtonClassName}
             >
               Delete Item

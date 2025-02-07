@@ -9,7 +9,7 @@ const DeleteItemModal = ({ card, isOpen, onClose, onDeleteItem }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal">
+    <div className="modal modal_opened">
       <div className="modal__container">
         <h2 className="modal__title">
           Are you sure you want to delete this item?

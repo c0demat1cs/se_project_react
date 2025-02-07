@@ -105,6 +105,10 @@ function App() {
     console.log(currentUser);
   };
 
+  const handleOpenDelete = () => {
+    setActiveModal("delete-item");
+  };
+
   // Function to close the active modal
   const closeActiveModal = () => {
     setActiveModal("");
@@ -310,6 +314,7 @@ function App() {
             isOpen={isItemModalOpen}
             card={selectedCard}
             onClose={closeActiveModal}
+            handleOpenDelete={handleOpenDelete}
           />
           <RegisterModal
             isRegisterOpen={isRegisterOpen}
