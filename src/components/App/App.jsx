@@ -332,6 +332,7 @@ function App() {
             closeActiveModal={closeActiveModal}
           />
           <DeleteItemModal
+            card={selectedCard}
             isOpen={isDeleteItemOpen}
             onDeleteItem={onDeleteItem}
             closeActiveModal={closeActiveModal}
