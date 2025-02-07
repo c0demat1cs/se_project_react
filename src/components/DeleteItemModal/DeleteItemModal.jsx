@@ -27,13 +27,13 @@ const DeleteItemModal = ({ card, isOpen, closeActiveModal, onDeleteItem }) => {
         <div className="modal__buttons">
           <button
             onClick={handleDeleteItem}
-            className="modal__button modal__button_confirm"
+            className={itemConfirmDeleteClassname}
           >
             Yes, delete item
           </button>
           <button
             onClick={closeActiveModal}
-            className={itemConfirmDeleteClassname}
+            className="modal__button modal__button_cancel"
           >
             Cancel
           </button>
