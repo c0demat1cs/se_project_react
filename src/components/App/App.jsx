@@ -138,6 +138,7 @@ function App() {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === id ? updatedCard : item))
             );
+            console.log("updated card:", updatedCard);
           })
           .catch((err) => console.log(err))
       : // if not, send a request to remove the user's id from the card's likes array
