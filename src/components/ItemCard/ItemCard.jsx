@@ -20,7 +20,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
 
   // function handleLike, call the handleCardLike function and pass it the item data as an argument
   const handleLike = () => {
-    onCardLike(item._id);
+    onCardLike(item._id, isLiked);
   };
   // Return the JSX code for the ItemCard component
   return (
