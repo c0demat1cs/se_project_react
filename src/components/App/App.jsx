@@ -124,11 +124,33 @@ function App() {
       .catch(console.error);
   }
 
-  // Function to add an item
-  // add handleAddItemSubmit handler, call correspinding method from api.js
-  // and update the clothingItems state variable with an extended copy of the array
-  // using the spread operator setClothingItems([item, ...clothingItems]);
-  // instead of a handleAddItem function
+  const handleCardLike = ({ _id, isLiked }) => {
+    const token = getToken();
+    console.log("user token:", token);
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        api
+          // the first argument is the card's id
+          .likeItem(_id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        api
+          // the first argument is the card's id
+          .unlikeItem(_id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
   const onAddItem = (values) => {
     const { name, imageUrl } = values; // destructure object values
     const weather = weatherData.type; // weather data from state variable
@@ -280,6 +302,7 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
@@ -288,6 +311,7 @@ function App() {
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
+                      onCardLike={handleCardLike}
                       onCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
