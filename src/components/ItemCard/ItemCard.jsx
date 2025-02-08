@@ -7,32 +7,36 @@ function ItemCard({ item, onCardClick, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
   // check if the item was liked by the current user
   // the likes array should be an arrayof ids
-  const isLiked = item.likes.some((id) => id === currentUser._id || false);
+  const isLiked = item.likes.some((id) => id === currentUser._id);
 
   // create a variable to set in 'ClassName' for the liked button
   const itemLikeButtonClassName = `card__like-button ${
-    isLiked ? "card__like-button_active" : ""
+    isLiked ? "card__like-button_active" : "card__like-button_inactive"
   }`;
 
   const handleCardClick = () => {
     onCardClick(item);
   };
 
+  if (!item._id) {
+    console.error("Error: item._id is undefined in handleLike");
+    return;
+  }
+
   // function handleLike, call the handleCardLike function and pass it the item data as an argument
   const handleLike = () => {
-    onCardLike(item._id, isLiked);
+    onCardLike({ id: item._id, isLiked });
   };
   // Return the JSX code for the ItemCard component
   return (
     <li className="card">
       <h2 className="card__name">{item.name}</h2>
-      {currentUser._id && (
-        <button
-          onClick={handleLike}
-          className={itemLikeButtonClassName}
-          type="button"
-        ></button>
-      )}
+
+      <button
+        onClick={handleLike}
+        className={itemLikeButtonClassName}
+        type="button"
+      ></button>
       <img
         onClick={handleCardClick}
         className="card__image"

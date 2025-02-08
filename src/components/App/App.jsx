@@ -32,7 +32,7 @@ import {
   unlikeItem,
   editProfile,
 } from "../../utils/api";
-import { getToken, setToken } from "../../utils/token";
+import { getToken, removeToken, setToken } from "../../utils/token";
 import * as auth from "../../utils/auth";
 import * as api from "../../utils/api";
 import "../../vendor/fonts.css"; // Import the fonts.css file
@@ -40,9 +40,8 @@ import "../../vendor/fonts.css"; // Import the fonts.css file
 // App component
 function App() {
   // invoke the navigate hook
-  // const navigate = useNavigate();
-  // invoke the location hook.
-  // const location = useLocation();
+  const navigate = useNavigate();
+
   // Declare the weatherData state variable
   const [weatherData, setWeatherData] = useState({
     type: "",
@@ -124,28 +123,30 @@ function App() {
       .catch(console.error);
   }
 
-  const handleCardLike = ({ _id, isLiked }) => {
+  const handleCardLike = ({ id, isLiked }) => {
     const token = getToken();
     console.log("user token:", token);
+    console.log("card id:", id);
+    console.log("isLiked:", isLiked);
     // Check if this card is not currently liked
     !isLiked
       ? // if so, send a request to add the user's id to the card's likes array
         api
           // the first argument is the card's id
-          .likeItem(_id, token)
+          .likeItem(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === _id ? updatedCard : item))
+              cards.map((item) => (item._id === id ? updatedCard : item))
             );
           })
           .catch((err) => console.log(err))
       : // if not, send a request to remove the user's id from the card's likes array
         api
           // the first argument is the card's id
-          .unlikeItem(_id, token)
+          .unlikeItem(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === _id ? updatedCard : item))
+              cards.map((item) => (item._id === id ? updatedCard : item))
             );
           })
           .catch((err) => console.log(err));
@@ -204,7 +205,7 @@ function App() {
       // and assign to variable called data
       .then((data) => {
         // make use of data
-        console.log(data);
+        console.log("Fetched clothing items:", data);
         setClothingItems(data.reverse()); // Update the clothingItems state variable
       })
       .catch(console.error);
@@ -259,13 +260,12 @@ function App() {
       });
   };
 
-  // // handle Logout
-  // const handleLogout = () => {
-  //   localStorage.removeItem("jwt");
-  //   setIsLoggedIn(false);
-  //   setUserData({ name: "", avatar: "" });
-  //   navigate("/");
-  // };
+  // handle Logout
+  function handleLogOut() {
+    removeToken();
+    navigate("/login");
+    setIsLoggedIn(false);
+  }
 
   // Compute a boolean to determine whether the modal is open
   const isAddGarmentOpen = activeModal === "add-garment";
@@ -316,6 +316,7 @@ function App() {
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
                       handleEditProfileClick={handleEditProfileClick}
+                      onLogOut={handleLogOut}
                     />
                   </ProtectedRoute>
                 }

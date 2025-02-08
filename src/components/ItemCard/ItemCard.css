@@ -37,7 +37,7 @@
 }
 
 .card__like-button_active {
-  background: url("../../assets/like-button-inactive.svg") center no-repeat;
+  background: url("../../assets/like-button-active.svg") center no-repeat;
   position: absolute;
   top: 20px;
   right: 100px;
