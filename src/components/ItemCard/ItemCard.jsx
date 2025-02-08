@@ -7,7 +7,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
   // check if the item was liked by the current user
   // the likes array should be an arrayof ids
-  const isLiked = item.likes.some((id) => id === currentUser._id);
+  const isLiked = item.likes.some((id) => id === currentUser._id || false);
 
   // create a variable to set in 'ClassName' for the liked button
   const itemLikeButtonClassName = `card__like-button ${
@@ -26,7 +26,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
   return (
     <li className="card">
       <h2 className="card__name">{item.name}</h2>
-      {isLiked && (
+      {currentUser._id && (
         <button
           onClick={handleLike}
           className={itemLikeButtonClassName}
