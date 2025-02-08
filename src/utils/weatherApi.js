@@ -15,13 +15,16 @@ export const filterWeatherData = (data) => {
     F: `${Math.round(data.main.temp)}°F`,
     C: `${Math.round(((data.main.temp - 32) * 5) / 9)}°C`,
   };
-  result.type = getWeatherType(data.main.temp.F);
+  result.type = getWeatherType(data.main.temp); // 🔹 FIX: Pass the correct temperature
   result.condition = data.weather[0].main.toLowerCase();
-  result.isDay = isDay(data.sys, Date.now());
+  result.isDay = isDay(data.sys); // 🔹 FIX: Remove incorrect time conversion
   return result; // Return the filtered weather data from the API response
 };
-const isDay = ({ sunrise, sunset }, now) => {
-  return sunrise < now * 1000 && now * 1000 < sunset;
+
+// Determine if it's daytime
+const isDay = ({ sunrise, sunset }) => {
+  const now = Date.now() / 1000; // Convert milliseconds to seconds
+  return sunrise < now && now < sunset;
 };
 
 // Function to determine the weather type based on the temperature
