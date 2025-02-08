@@ -19,10 +19,6 @@ function ClothesSection({
   // debuggin logs
   console.log("Current User:", currentUser);
   console.log("Clothing Items:", clothingItems);
-  console.log(
-    "Filtered User Items:",
-    clothingItems.filter((item) => item.owner === currentUser._id)
-  );
 
   return (
     <div className="clothes-section">

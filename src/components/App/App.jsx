@@ -123,7 +123,7 @@ function App() {
       .catch(console.error);
   }
 
-  const handleCardLike = ({ id, isLiked }) => {
+  const handleCardLike = (id, isLiked) => {
     const token = getToken();
     console.log("user token:", token);
     console.log("card id:", id);
@@ -136,9 +136,9 @@ function App() {
           .likeItem(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+              cards.map((item) => (item._id === id ? updatedCard.data : item))
             );
-            console.log("updated card:", updatedCard);
+            console.log("Updated (liked) card from API:", updatedCard.data);
           })
           .catch((err) => console.log(err))
       : // if not, send a request to remove the user's id from the card's likes array
@@ -147,8 +147,9 @@ function App() {
           .unlikeItem(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
+              cards.map((item) => (item._id === id ? updatedCard.data : item))
             );
+            console.log("Updated (unliked) card from API:", updatedCard.data);
           })
           .catch((err) => console.log(err));
   };
