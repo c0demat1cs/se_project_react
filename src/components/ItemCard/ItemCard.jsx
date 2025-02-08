@@ -11,7 +11,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
 
   // create a variable to set in 'ClassName' for the liked button
   const itemLikeButtonClassName = `card__like-button ${
-    isLiked ? "card__like-button_inactive" : "card__like-button_active"
+    isLiked ? "card__like-button_active" : "card__like-button_inactive"
   }`;
 
   const handleCardClick = () => {

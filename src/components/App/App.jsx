@@ -147,7 +147,7 @@ function App() {
           .unlikeItem(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard.data : item))
+              cards.map((item) => (item._id === id ? updatedCard : item))
             );
             console.log("Updated (unliked) card from API:", updatedCard.data);
           })
