@@ -16,7 +16,7 @@
 }
 
 .modal__title {
-  margin: 0 0 24px;
+  padding-bottom: 24px;
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
@@ -116,4 +116,10 @@
 .modal__submit:hover {
   opacity: 60%;
   transition: ease-in-out 0.2s;
+}
+
+.modal__submit-alt {
+  background-color: transparent;
+  color: #000000;
+  opacity: 50%;
 }

@@ -6,6 +6,7 @@ const RegisterModal = ({
   closeActiveModal,
   onRegistration,
   isRegisterOpen,
+  handleLoginClick,
 }) => {
   const [email, setEmail] = useState(""); // Declare the email state variable
   const [password, setPassword] = useState(""); // Declare the password state variable
@@ -45,10 +46,11 @@ const RegisterModal = ({
   return (
     <ModalWithForm
       title="Sign up"
-      buttonText="Register"
+      buttonText="Sign Up"
       isOpen={isRegisterOpen}
       onClose={closeActiveModal}
       onSubmit={handleRegistration}
+      handleLoginClick={handleLoginClick}
     >
       <label htmlFor="email" className="modal__label">
         Email{" "}

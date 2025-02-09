@@ -59,6 +59,9 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({}); // Declare the selectedCard state variable
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F"); // Declare the CurrentTemperatureUnit state variables
 
+  console.log("===============================");
+  console.log(clothingItems);
+
   // check the token
   useEffect(() => {
     const token = getToken();
@@ -201,16 +204,15 @@ function App() {
 
   // Fetch the clothing items from the API
   useEffect(() => {
-    getItems()
-      // pull the value of the data property
-      // and assign to variable called data
-      .then((data) => {
-        // make use of data
-        console.log("Fetched clothing items:", data);
-        setClothingItems(data.reverse()); // Update the clothingItems state variable
-      })
-      .catch(console.error);
-  }, []);
+    if (isLoggedIn) {
+      getItems()
+        .then((data) => {
+          console.log("Fetched clothing items after user update:", data);
+          setClothingItems(data.reverse()); // Preserve the latest order
+        })
+        .catch(console.error);
+    }
+  }, [currentUser]); // Re-fetch when `currentUser` updates
 
   // function for processing registration.
   // after successful registration, close the modal and sign in the user.
@@ -239,6 +241,7 @@ function App() {
           setToken(data.token); // Save the token to local storage
           localStorage.setItem("jwt", data.token);
           getUserInfo();
+          navigate("/");
         }
       })
       .catch((error) => {
@@ -252,8 +255,12 @@ function App() {
   const onEditProfile = ({ name, avatar }) => {
     const token = getToken();
     editProfile(name, avatar, token)
-      .then(({ name, avatar }) => {
-        setCurrentUser({ name, avatar });
+      .then((updatedUser) => {
+        setCurrentUser((prevUser) => ({
+          ...prevUser, // Keep existing properties
+          name: updatedUser.name,
+          avatar: updatedUser.avatar,
+        }));
         closeActiveModal();
       })
       .catch((error) => {
@@ -340,6 +347,7 @@ function App() {
             isRegisterOpen={isRegisterOpen}
             onRegistration={onRegistration}
             closeActiveModal={closeActiveModal}
+            handleLoginClick={handleLoginClick}
           />
           <LoginModal
             isLoginOpen={isLoginOpen}

@@ -9,6 +9,7 @@ function ModalWithForm({
   isOpen,
   onClose,
   onSubmit,
+  handleLoginClick,
 }) {
   return (
     <div className={isOpen ? "modal modal_opened" : "modal"}>
@@ -19,9 +20,21 @@ function ModalWithForm({
         </button>
         <form onSubmit={onSubmit} className="modal__form">
           {children}
-          <button type="submit" className="modal__submit">
-            {buttonText}
-          </button>
+          <div className="modal__submit-buttons">
+            <button type="submit" className="modal__submit">
+              {buttonText}
+            </button>
+            {/* If the handleLoginClick function is passed as a prop, display the "or Log In" button */}
+            {handleLoginClick && (
+              <button
+                type="button"
+                className="modal__submit modal__submit-alt"
+                onClick={handleLoginClick}
+              >
+                or Log In
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

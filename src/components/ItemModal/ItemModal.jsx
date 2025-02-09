@@ -24,12 +24,14 @@ function ItemModal({ card, isOpen, onClose, handleOpenDelete }) {
         <div className="modal__footer">
           <div className="modal__footer_heading">
             <h2 className="modal__caption">{card.name}</h2>
-            <button
-              onClick={handleOpenDelete}
-              className={itemDeleteButtonClassName}
-            >
-              Delete Item
-            </button>
+            {isOwn && (
+              <button
+                onClick={handleOpenDelete}
+                className={itemDeleteButtonClassName}
+              >
+                Delete Item
+              </button>
+            )}
           </div>
           <p className="modal__footer_card-weather">Weather: {card.weather}</p>
         </div>
