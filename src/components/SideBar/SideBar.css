@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   align-content: flex-start;
   font: 20px/24px "Cabinet Grotesk";
-  max-width: 229px;
+  min-width: 229px;
 }
 
 .sidebar__avatar {

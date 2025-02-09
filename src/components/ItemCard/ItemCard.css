@@ -6,10 +6,14 @@
   justify-content: center;
 }
 
-.card__name {
+.card__info_container {
+  display: flex;
   position: absolute;
   top: 15px;
-  left: 100px;
+  gap: 10px;
+}
+
+.card__name {
   margin: 0;
   background: #fff;
   padding: 2px 12px;
@@ -22,9 +26,6 @@
 
 .card__like-button {
   background: url("../../assets/like-button-inactive.svg") center no-repeat;
-  position: absolute;
-  top: 20px;
-  right: 100px;
   width: 20px;
   height: 20px;
   border: none;
@@ -38,9 +39,6 @@
 
 .card__like-button_active {
   background: url("../../assets/like-button-active.svg") center no-repeat;
-  position: absolute;
-  top: 20px;
-  right: 100px;
   width: 20px;
   height: 20px;
   border: none;

@@ -2,5 +2,6 @@
   display: flex;
   gap: 20px;
   padding-top: 20px;
-  height: 80%;
+  max-height: fit-content;
+  /* make the content fit container */
 }

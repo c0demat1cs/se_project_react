@@ -155,8 +155,7 @@ function App() {
   };
 
   const onAddItem = (values) => {
-    const { name, imageUrl } = values; // destructure object values
-    const weather = weatherData.type; // weather data from state variable
+    const { name, imageUrl, weather } = values; // destructure object values
     const token = getToken(); // get the token from local storage
     api
       .postItem(name, imageUrl, weather, token)

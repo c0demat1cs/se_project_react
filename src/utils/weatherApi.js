@@ -15,7 +15,7 @@ export const filterWeatherData = (data) => {
     F: `${Math.round(data.main.temp)}°F`,
     C: `${Math.round(((data.main.temp - 32) * 5) / 9)}°C`,
   };
-  result.type = getWeatherType(data.main.temp); // 🔹 FIX: Pass the correct temperature
+  result.type = getWeatherType(data.main.temp); //
   result.condition = data.weather[0].main.toLowerCase();
   result.isDay = isDay(data.sys); // 🔹 FIX: Remove incorrect time conversion
   return result; // Return the filtered weather data from the API response
