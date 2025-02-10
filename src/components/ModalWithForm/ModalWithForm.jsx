@@ -1,5 +1,4 @@
 import "./ModalWithForm.css"; // Import the ModalWithForm component styles
-import { useState } from "react"; // Import the useState hook
 
 // ModalWithForm component
 function ModalWithForm({
@@ -9,8 +8,8 @@ function ModalWithForm({
   isOpen,
   onClose,
   onSubmit,
-  handleLoginClick,
 }) {
+  console.log(buttonText, "or Sign Up");
   return (
     <div className={isOpen ? "modal modal_opened" : "modal"}>
       <div className="modal__content">
@@ -20,21 +19,23 @@ function ModalWithForm({
         </button>
         <form onSubmit={onSubmit} className="modal__form">
           {children}
-          <div className="modal__submit-buttons">
+
+          {/* <div className="modal__submit-buttons">
             <button type="submit" className="modal__submit">
               {buttonText}
             </button>
-            {/* If the handleLoginClick function is passed as a prop, display the "or Log In" button */}
-            {handleLoginClick && (
-              <button
-                type="button"
-                className="modal__submit modal__submit-alt"
-                onClick={handleLoginClick}
-              >
-                or Log In
-              </button>
-            )}
-          </div>
+            <button
+              type="button"
+              className="modal__submit modal__submit-alt"
+              onClick={
+                buttonText === "or Sign Up"
+                  ? handleRegisterClick
+                  : handleLoginClick
+              }
+            >
+              {buttonText === "Log in" ? "or Sign Up" : "or Log In"}
+            </button>
+          </div> */}
         </form>
       </div>
     </div>

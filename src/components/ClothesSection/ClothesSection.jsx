@@ -12,12 +12,12 @@ function ClothesSection({
   const { currentUser } = useContext(CurrentUserContext);
 
   console.log("Current User:", currentUser);
-  console.log("Current User _id:", currentUser._id);
+  console.log("Current User _id:", currentUser?._id);
   console.log("Clothing Items:", clothingItems);
 
   // Filter clothing items to only show the items added by the current user
   const userItems = clothingItems.filter(
-    (item) => item.owner === currentUser._id
+    (item) => item.owner === currentUser?._id
   );
   console.log("user items", userItems);
 

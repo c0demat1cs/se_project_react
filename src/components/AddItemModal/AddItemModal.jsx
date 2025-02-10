@@ -5,7 +5,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
   // Add the name state
   const [name, setName] = useState("");
   // Add the imageUrl state
-  const [imageUrl, setUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   // Add the weather state
   const [weather, setWeather] = useState("");
   // handle url change
@@ -14,7 +14,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
   };
   // handle url change
   const handleUrlChange = (e) => {
-    setUrl(e.target.value);
+    setImageUrl(e.target.value);
   };
   // handle weather change
   const handleWeatherChange = (e) => {
@@ -29,7 +29,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
   useEffect(() => {
     if (isAddGarmentOpen) {
       setName("");
-      setUrl("");
+      setImageUrl("");
       setWeather("");
     }
   }, [isAddGarmentOpen]); // run effect
@@ -42,7 +42,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
       onClose={closeActiveModal}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="add_name" className="modal__label">
         Name{" "}
         <input
           type="text"
@@ -103,6 +103,7 @@ const AddItemModal = ({ closeActiveModal, onAddItem, isAddGarmentOpen }) => {
           Cold
         </label>
       </fieldset>
+      {/* TODO: Add button */}
     </ModalWithForm>
   );
 };

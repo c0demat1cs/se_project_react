@@ -10,9 +10,7 @@ function authorize(email, password) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(processServerResponse);
 }
 
 // /signup for user registration
@@ -23,9 +21,7 @@ function register(name, avatar, email, password) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, avatar, email, password }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(processServerResponse);
 }
 
 // /users/me to check the token
@@ -36,9 +32,7 @@ function getUserInfo(token) {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(processServerResponse);
 }
 
 export { authorize, register, getUserInfo };

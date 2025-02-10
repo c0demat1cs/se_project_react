@@ -7,10 +7,10 @@ function ItemCard({ item, onCardClick, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
   // check if the item was liked by the current user
   // the likes array should be an arrayof ids
-  const isLiked = item.likes.some((id) => id === currentUser._id);
+  const isLiked = item.likes.some((id) => id === currentUser?._id);
 
   // Checking if the current user is the owner of the current clothing item
-  const isOwn = item.owner === currentUser._id;
+  const isOwn = item.owner === currentUser?._id;
 
   // create a variable to set in 'ClassName' for the liked button
   const itemLikeButtonClassName = `card__like-button ${

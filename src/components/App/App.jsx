@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react"; // import hooks useState and useEffect
 // import { Routes, Route } from "react-router-dom"; // import the Routes and Route components
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css"; // import the App component styles
 import Header from "../Header/Header"; // import the Header component
 import Main from "../Main/Main"; // import the Main component
@@ -24,14 +18,7 @@ import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import DeleteItemModal from "../DeleteItemModal/DeleteItemModal";
 import ProtectedRoute from "../ProtectedRoute";
-import {
-  getItems,
-  postItem,
-  deleteItem,
-  likeItem,
-  unlikeItem,
-  editProfile,
-} from "../../utils/api";
+import { getItems, editProfile } from "../../utils/api";
 import { getToken, removeToken, setToken } from "../../utils/token";
 import * as auth from "../../utils/auth";
 import * as api from "../../utils/api";
@@ -48,11 +35,7 @@ function App() {
     temp: { F: 999 },
     city: "",
   });
-  const [currentUser, setCurrentUser] = useState({
-    name: "",
-    avatar: "",
-    _id: "",
-  }); // Declare the currentUser state variable
+  const [currentUser, setCurrentUser] = useState(null); // Declare the currentUser state variable
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Declare the isLoggedIn state variable
   const [clothingItems, setClothingItems] = useState([]); // Declare the clothingItems state variable
   const [activeModal, setActiveModal] = useState(""); // Declare the activeModal state variable
@@ -108,6 +91,19 @@ function App() {
     setActiveModal("");
   };
 
+  useEffect(() => {
+    if (!activeModal) return; // Stop if no modal is open
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+    document.addEventListener("keydown", handleEscClose); // Add event listener
+    return () => {
+      document.removeEventListener("keydown", handleEscClose); // Cleanup listener
+    };
+  }, [activeModal]); // Runs only when activeModal changes
+
   // Function to handle the toggle switch change event
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -154,7 +150,7 @@ function App() {
             );
             console.log("Updated (unliked) card from API:", updatedCard.data);
           })
-          .catch((err) => console.log(err));
+          .catch(console.error);
   };
 
   const onAddItem = (values) => {
@@ -204,15 +200,13 @@ function App() {
 
   // Fetch the clothing items from the API
   useEffect(() => {
-    if (isLoggedIn) {
-      getItems()
-        .then((data) => {
-          console.log("Fetched clothing items after user update:", data);
-          setClothingItems(data.reverse()); // Preserve the latest order
-        })
-        .catch(console.error);
-    }
-  }, [currentUser]); // Re-fetch when `currentUser` updates
+    getItems()
+      .then((data) => {
+        console.log("Fetched clothing items after user update:", data);
+        setClothingItems(data.reverse()); // Preserve the latest order
+      })
+      .catch(console.error);
+  }, []); // Re-fetch when `currentUser` updates
 
   // function for processing registration.
   // after successful registration, close the modal and sign in the user.
@@ -271,8 +265,9 @@ function App() {
   // handle Logout
   function handleLogOut() {
     removeToken();
-    navigate("/login");
+    navigate("/");
     setIsLoggedIn(false);
+    setCurrentUser(null);
   }
 
   // Compute a boolean to determine whether the modal is open
@@ -353,6 +348,7 @@ function App() {
             isLoginOpen={isLoginOpen}
             onLogin={onLogin}
             closeActiveModal={closeActiveModal}
+            handleRegisterClick={handleRegisterClick}
           />
           <EditProfileModal
             isEditProfileOpen={isEditProfileOpen}

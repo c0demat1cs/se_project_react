@@ -9,9 +9,7 @@ function getItems() {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(processServerResponse);
 }
 
 // post items to the api - protected

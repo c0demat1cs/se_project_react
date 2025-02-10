@@ -14,13 +14,13 @@ const EditProfileModal = ({
 }) => {
   const { currentUser } = useContext(CurrentUserContext); // get the current user data
 
-  const [name, setName] = useState(currentUser.name); // Declare the name state variable
-  const [avatar, setAvatar] = useState(currentUser.avatar); // Declare the avatar state variable
+  const [name, setName] = useState(currentUser?.name); // Declare the name state variable
+  const [avatar, setAvatar] = useState(currentUser?.avatar); // Declare the avatar state variable
 
   useEffect(() => {
     if (isEditProfileOpen) {
-      setName(currentUser.name);
-      setAvatar(currentUser.avatar);
+      setName(currentUser?.name);
+      setAvatar(currentUser?.avatar);
     }
   }, [isEditProfileOpen, currentUser]); // run effect
 
@@ -70,6 +70,10 @@ const EditProfileModal = ({
           required
         />
       </label>
+      {/* TODO: Add submit button */}
+      <button type="submit" className="modal__submit">
+        Save changes
+      </button>
     </ModalWithForm>
   );
 };

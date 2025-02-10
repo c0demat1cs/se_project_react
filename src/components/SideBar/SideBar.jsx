@@ -5,8 +5,8 @@ import "./SideBar.css";
 
 function SideBar({ handleProfileEditClick, onLogOut }) {
   const { currentUser } = useContext(CurrentUserContext);
-  const avatar = currentUser.avatar;
-  const name = currentUser.name;
+  const avatar = currentUser?.avatar;
+  const name = currentUser?.name;
 
   return (
     <div className="sidebar">

@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm"; // reusing ModalWithForm component
 
 // LoginModal is the component for user authorization with the necessary state variables
-const LoginModal = ({ closeActiveModal, onLogin, isLoginOpen }) => {
+const LoginModal = ({
+  closeActiveModal,
+  onLogin,
+  isLoginOpen,
+  handleRegisterClick,
+}) => {
   const [email, setEmail] = useState(""); // Declare the email state variable
   const [password, setPassword] = useState(""); // Declare the password state variable
 
@@ -57,6 +62,18 @@ const LoginModal = ({ closeActiveModal, onLogin, isLoginOpen }) => {
           onChange={handlePasswordChange}
         />
       </label>
+      <div className="modal__submit-buttons">
+        <button type="submit" className="modal__submit">
+          Log In
+        </button>
+        <button
+          type="button"
+          className="modal__submit modal__submit-alt"
+          onClick={handleRegisterClick}
+        >
+          or Sign Up
+        </button>
+      </div>
     </ModalWithForm>
   );
 };
