@@ -9,9 +9,9 @@ export default function ProtectedRoute({ children }) {
   // destructure isLoggedIn from the value provided by the CurrentUserContext
   const { isLoggedIn } = useContext(CurrentUserContext);
 
-  // if user is not logged in, redirect to the login page
+  // if user is not logged in, redirect to the home page
   if (!isLoggedIn) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to="/" state={{ from: location }} />;
   }
 
   // otherwise, render the protected route's child component

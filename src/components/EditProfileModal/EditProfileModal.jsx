@@ -45,7 +45,7 @@ const EditProfileModal = ({
       onClose={closeActiveModal}
       onSubmit={handleEditProfile}
     >
-      <label htmlFor="edit__name" className="modal__label">
+      <label className="modal__label">
         Name{" "}
         <input
           type="text"
@@ -57,7 +57,7 @@ const EditProfileModal = ({
           required
         />
       </label>
-      <label htmlFor="edit__avatar" className="modal__label">
+      <label className="modal__label">
         Avatar URL{" "}
         <input
           type="url"
