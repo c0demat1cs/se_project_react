@@ -41,12 +41,11 @@ const EditProfileModal = ({
   return (
     <ModalWithForm
       title="Edit profile"
-      buttonText="Save changes"
       isOpen={isEditProfileOpen}
       onClose={closeActiveModal}
       onSubmit={handleEditProfile}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="edit__name" className="modal__label">
         Name{" "}
         <input
           type="text"
@@ -58,7 +57,7 @@ const EditProfileModal = ({
           required
         />
       </label>
-      <label htmlFor="avatar" className="modal__label">
+      <label htmlFor="edit__avatar" className="modal__label">
         Avatar URL{" "}
         <input
           type="url"
@@ -70,7 +69,6 @@ const EditProfileModal = ({
           required
         />
       </label>
-      {/* TODO: Add submit button */}
       <button type="submit" className="modal__submit">
         Save changes
       </button>
