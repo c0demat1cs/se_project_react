@@ -1,5 +1,5 @@
 // set the base url for the api
-const BASE_URL = "http://localhost:3001";
+import { BASE_URL } from "../utils/constants.js";
 import { processServerResponse } from "./utils.js";
 
 // get all items from the api - unprotected

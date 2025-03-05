@@ -173,6 +173,8 @@ function App() {
   // close the item modal window.
   const onDeleteItem = (_id) => {
     const token = getToken();
+    console.log("token", token);
+    console.log("item id", _id);
     api
       .deleteItem(_id, token)
       .then(() => {

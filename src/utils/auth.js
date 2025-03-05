@@ -1,5 +1,6 @@
 // specify the BASE_URL for the backend server
-export const BASE_URL = "http://localhost:3001";
+import { BASE_URL } from "../utils/constants.js";
+// import the processServerResponse function
 import { processServerResponse } from "./utils";
 
 // /signin for user authorization
